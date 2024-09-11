@@ -9,14 +9,14 @@ on:
     types:
       - closed
 jobs:
-  Test:
+  test:
     if: github.event.pull_request.merged == true
     uses: iuxtaa/SPEED/.github/workflows/test.yml@main
 
   Deploy-Production:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    needs: [Test]
+    needs: [test]
     steps:
       - uses: actions/checkout@v3
       - name: Install Vercel CLI
