@@ -11,7 +11,7 @@ on:
 jobs:
   Test:
     if: github.event.pull_request.merged == true
-    uses: iuxtaa/SPEED/.github/workflows/test.yml@develop
+    uses: iuxtaa/SPEED/.github/workflows/test.yml@ann-dev
 
   Deploy-Production:
     if: github.event.pull_request.merged == true
