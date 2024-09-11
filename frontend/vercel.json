@@ -12,7 +12,6 @@
         "dest": "/src/pages/$1"
       }
     ],
-    "framework": "nextjs",
-    "cleanUrls": true
+    "framework": "nextjs"
   }
   
