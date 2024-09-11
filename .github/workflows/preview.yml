@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   Test:
-    uses: iuxtaa/SPEED/.github/workflows/test.yml@ann-dev
+    uses: iuxtaa/SPEED/.github/workflows/test.yml@main
 
   Deploy-Preview:
     runs-on: ubuntu-latest
