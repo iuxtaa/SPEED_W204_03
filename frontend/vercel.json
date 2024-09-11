@@ -2,16 +2,15 @@
     "version": 2,
     "builds": [
       {
-        "src": "src/pages/**/*.{js,jsx,ts,tsx}",
+        "src": "SPEED/frontend/package.json",
         "use": "@vercel/next"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/src/pages/$1"
+        "dest": "/SPEED/frontend/src/app/page.tsx"
       }
-    ],
-    "framework": "nextjs"
+    ]
   }
   
