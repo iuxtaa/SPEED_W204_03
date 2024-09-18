@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { ArticleStatus } from '../enums/articles.status';
 
 export type ArticleDocument = HydratedDocument<Article>;
 
@@ -21,5 +22,7 @@ export class Article {
   pages: string;
   @Prop({ required: true })
   doi: string;
+  @Prop({ required: true })
+  articleStatus: ArticleStatus;
 }
 export const ArticleSchema = SchemaFactory.createForClass(Article);
