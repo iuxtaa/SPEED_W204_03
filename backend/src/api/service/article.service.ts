@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Article } from '../schemas/article.schema';
-import { SearchArticleDTO } from '../dto/search-article.dto';
+import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
+import { ArticleStatus } from '../enums/articles.status';
 
 @Injectable()
 export class ArticleService {
@@ -18,19 +19,44 @@ export class ArticleService {
     for Researcher
   */
 
-  // Finds all articles in the DB
-  async findAllArticles(): Promise<Article[]> {
-    return await this.articleModel.find().exec();
+  // Finds all accepted articles in the DB
+  async findAnalysededArticles(): Promise<Article[]> {
+    return await this.articleModel
+      .find({ articleStatus: ArticleStatus.Analysed })
+      .exec();
+  }
+
+  // Finds all unmoderated articles in the DB
+  async findUnmoderatedArticles(): Promise<Article[]> {
+    return await this.articleModel
+      .find({ articleStatus: ArticleStatus.Unmoderated })
+      .exec();
+  }
+
+  // Finds all moderated articles in the DB
+  async findModeratedArticles(): Promise<Article[]> {
+    return await this.articleModel
+      .find({ articleStatus: ArticleStatus.Moderated })
+      .exec();
+  }
+
+  // Finds all rejected articles in the DB
+  async findRejectedArticles(): Promise<Article[]> {
+    return await this.articleModel
+      .find({ articleStatus: ArticleStatus.Rejected })
+      .exec();
   }
 
   // Finds articles based on search query
-  async findArticle(SearchArticleDTO: SearchArticleDTO): Promise<Article[]> {
+  async findArticle(
+    SearchArticleDTO: SearchAnalysedArticleDTO,
+  ): Promise<Article[]> {
     const query = this.buildSearchQuery(SearchArticleDTO);
     return await this.articleModel.find(query).exec();
   }
 
   // Creates a query object by iterating over each key in  SearchArticleDTO
-  private buildSearchQuery(SearchArticleDTO: SearchArticleDTO): any {
+  private buildSearchQuery(SearchArticleDTO: SearchAnalysedArticleDTO): any {
     const query = {};
 
     Object.entries(SearchArticleDTO).forEach(([key, value]) => {
