@@ -10,13 +10,13 @@ export class User {
   firstname: string;
   @Prop({ required: true })
   lastname: string;
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   username: string;
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email: string;
   @Prop({ required: true })
   password: string;
-  @Prop({ required: true })
+  @Prop({ default: UserStatus.General })
   status: UserStatus;
 }
 export const UserSchema = SchemaFactory.createForClass(User);
