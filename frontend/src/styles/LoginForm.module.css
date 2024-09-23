@@ -33,4 +33,14 @@
     height: 40px;
     cursor: pointer;
   }
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #333; /* You can change this color based on your design */
+}
+
   

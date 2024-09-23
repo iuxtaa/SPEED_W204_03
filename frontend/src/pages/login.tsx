@@ -1,37 +1,40 @@
-import React, { useState } from 'react';
-import styles from '../styles/Login.module.scss';
+import React from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import styles from '../styles/LoginForm.module.css';
 
 const LoginPage = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleLogin = async (event: React.FormEvent) => {
-        event.preventDefault();
-        // Here you would typically handle your login logic, like making an API call
-        console.log('Login Attempt:', username, password);
-    };
-
     return (
-        <div className={styles.loginContainer}>
-            <form onSubmit={handleLogin} className={styles.loginForm}>
-                <input
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className={styles.inputField}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className={styles.inputPassword}
-                />
-                <button type="submit" className={styles.loginButton}>
-                    Log In
-                </button>
-            </form>
+        <div>
+            <Head>
+                <title>Login Page</title>
+                <meta name="description" content="Login to access your account" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <div className={styles.header}>
+                SPEED
+            </div>
+            <main className={styles.loginContainer}>
+                <h1>Login</h1>
+                <form className={styles.loginForm}>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        className={styles.inputField}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        className={styles.inputPassword}
+                    />
+                    <button type="submit" className={styles.loginButton}>
+                        Log In
+                    </button>
+                </form>
+                <p className={styles.signupPrompt}>
+                    Don&apos;t have an account? <Link href="/signup"><a>Sign Up</a></Link>
+                </p>
+            </main>
         </div>
     );
 };
