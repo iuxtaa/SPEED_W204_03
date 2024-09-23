@@ -18,11 +18,11 @@ export class UserMessages {
 
   public static readonly minPassLengthMessage = `Your password must be ${UserDetails.minPassLength} characters long.`;
 
-  public static readonly takenUNameMessage =
-    'This username is taken by an existing account. Please use a different one.';
+  public static readonly takenCredentialsMessage =
+    'The username or email is taken by an existing account. Please use a different one.';
 
-  public static readonly takenEmailMessage =
-    'This email is taken by an existing account. Please use a different one.';
+  public static readonly invalidCredentialsMessage =
+    'Credentials do not match. Please try again.';
 
   public static readonly weakPasswordMessage =
     'This password is too weak. Please try again. Your password must be at least 8 characters long and includes at least 1 number, 1 lowercase character, 1 uppercase character, and 1 symbol.';
