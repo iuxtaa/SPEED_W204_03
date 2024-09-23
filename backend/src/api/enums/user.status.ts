@@ -1,4 +1,4 @@
-export enum UserRole {
+export enum UserStatus {
   General,
   Moderator,
   Analyser,

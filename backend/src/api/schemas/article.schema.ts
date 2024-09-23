@@ -8,20 +8,28 @@ export type ArticleDocument = HydratedDocument<Article>;
 export class Article {
   @Prop({ required: true })
   title: string;
+
   @Prop({ required: true })
   author: string;
+
   @Prop({ required: true })
   journalName: string;
+
   @Prop({ required: true })
   publicationYear: number;
+
   @Prop()
   volume: number;
+
   @Prop()
   number: number;
+
   @Prop()
   pages: string;
+
   @Prop({ required: true })
   doi: string;
+
   @Prop({ required: true })
   articleStatus: ArticleStatus;
 }

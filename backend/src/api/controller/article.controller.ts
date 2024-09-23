@@ -10,9 +10,9 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { error } from 'console';
 import { ArticleService } from '../service/article.service';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
-import { error } from 'console';
 
 @Controller('api/articles')
 export class ArticleController {
@@ -29,7 +29,7 @@ export class ArticleController {
   */
 
   // Get analysed articles
-  @Get('/analysed')
+  @Get('/')
   async findAnalysedArticles() {
     try {
       return this.ArticleService.findAnalysededArticles();
@@ -46,7 +46,7 @@ export class ArticleController {
   }
 
   // Get unmoderated articles
-  @Get('/unmoderated')
+  @Get('/unmoderated-articles')
   async findUnmoderatedArticles() {
     try {
       return this.ArticleService.findUnmoderatedArticles();
@@ -62,8 +62,8 @@ export class ArticleController {
     }
   }
 
-  // Get unmoderated articles
-  @Get('/moderated')
+  // Get moderated articles
+  @Get('/moderated-articles')
   async findModeratedArticles() {
     try {
       return this.ArticleService.findModeratedArticles();
@@ -80,7 +80,7 @@ export class ArticleController {
   }
 
   // Get rejected articles
-  @Get('/rejected')
+  @Get('/rejected-articles')
   async findRejectedArticles() {
     try {
       return this.ArticleService.findRejectedArticles();
@@ -97,7 +97,7 @@ export class ArticleController {
   }
 
   // Get articles by search query
-  @Get('/search')
+  @Get('/search-article')
   async findArticlesBySearchQuery(@Query() query: SearchAnalysedArticleDTO) {
     try {
       return this.ArticleService.findArticle(query);
