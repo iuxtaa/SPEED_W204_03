@@ -11,9 +11,6 @@ const LoginPage = () => {
                 <meta name="description" content="Login to access your account" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className={styles.header}>
-                SPEED
-            </div>
             <main className={styles.loginContainer}>
                 <h1>Login</h1>
                 <form className={styles.loginForm}>
