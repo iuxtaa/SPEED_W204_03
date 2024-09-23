@@ -1,19 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Article } from '../schemas/article.schema';
+import { Article, ArticleDocument } from '../schemas/article.schema';
+import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { ArticleStatus } from '../enums/articles.status';
 
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectModel(Article.name) private articleModel: Model<Article>,
+    @InjectModel(Article.name) private readonly articleModel: Model<ArticleDocument>,
   ) {}
   test(): string {
     return 'article route testing';
   }
 
+  /*
+    SUBMIT FUNCTIONS
+    for Submitter
+  */
+  async create(submitArticleDTO: SubmitArticleDTO): Promise<ArticleDocument> {
+    const newArticle = new this.articleModel({
+      ...submitArticleDTO,
+    });
+
+    return newArticle.save();  // Save returns the document with the auto-generated _id
+  }
+
+  // Adjust find, update, delete to use _id instead of id
+  async findAll(): Promise<ArticleDocument[]> {
+    return this.articleModel.find().exec();
+  }
+
+  async findOne(id: string): Promise<ArticleDocument> {
+    return this.articleModel.findById(id).exec();  // Use _id
+  }
+
+  async update(id: string, updateArticleDto: SubmitArticleDTO): Promise<ArticleDocument> {
+    return this.articleModel.findByIdAndUpdate(id, updateArticleDto, { new: true }).exec();  // Use _id
+  }
+
+  async remove(id: string): Promise<ArticleDocument> {
+    return this.articleModel.findByIdAndDelete(id).exec();  // Use _id
+  }
+  
   /*
     SEARCH FUNCTIONS
     for Researcher
