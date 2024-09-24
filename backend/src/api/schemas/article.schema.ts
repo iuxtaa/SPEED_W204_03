@@ -6,6 +6,10 @@ export type ArticleDocument = HydratedDocument<Article>;
 
 @Schema()
 export class Article {
+
+  // @Prop()
+  // id: number;
+
   @Prop({ required: true })
   title: string;
 
