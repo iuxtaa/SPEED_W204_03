@@ -1,17 +1,13 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import type { AppProps } from 'next/app';
-
-function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.pathname === '/') {
-      router.replace('/login');
-    }
-  }, [router]);
-
-  return <Component {...pageProps} />;
+import "../styles/globals.scss";
+import type { AppProps } from "next/app";
+import { SessionProvider } from "next-auth/react";
+import PopulatedNavBar from "../components/PopulatedNavBar";
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+return (
+<SessionProvider session={session}>
+<PopulatedNavBar />
+<Component {...pageProps} />
+</SessionProvider>
+);
 }
-
 export default MyApp;
