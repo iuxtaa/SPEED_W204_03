@@ -21,6 +21,7 @@ export class ArticleService {
   */
   async create(submitArticleDTO: SubmitArticleDTO): Promise<ArticleDocument> {
     const newArticle = new this.articleModel({
+      articleStatus: ArticleStatus.Unmoderated,  // Set default status to unmoderated
       ...submitArticleDTO,
     });
 
