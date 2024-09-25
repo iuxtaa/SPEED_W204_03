@@ -16,7 +16,7 @@ export class User {
   email: string;
   @Prop({ required: true })
   password: string;
-  @Prop({ default: UserStatus.General })
+  @Prop({ required: true })
   status: UserStatus;
 }
 export const UserSchema = SchemaFactory.createForClass(User);
