@@ -60,7 +60,7 @@ export class ArticleService {
 
   // Finds all unmoderated articles in the DB
   async findUnmoderatedArticles(): Promise<Article[]> {
-    return await this.articleModel
+    return this.articleModel
       .find({ articleStatus: ArticleStatus.Unmoderated })
       .exec();
   }
