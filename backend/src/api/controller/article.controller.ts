@@ -15,6 +15,7 @@ import { error } from 'console';
 import { ArticleService } from '../service/article.service';
 import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
+import { UpdateArticleDTO } from '../dto/update-article.dto';
 
 @Controller('api/articles')
 export class ArticleController {
@@ -46,7 +47,7 @@ export class ArticleController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateArticleDto: SubmitArticleDTO) {
+  async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDTO) {
     return this.ArticleService.update(id, updateArticleDto);  // Use _id for update
   }
 
