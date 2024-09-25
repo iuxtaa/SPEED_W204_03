@@ -5,12 +5,12 @@ import { Article, ArticleDocument } from '../schemas/article.schema';
 import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { ArticleStatus } from '../enums/articles.status';
+import { UpdateArticleDTO } from '../dto/update-article.dto';
 
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectModel(Article.name)
-    private readonly articleModel: Model<ArticleDocument>,
+    @InjectModel(Article.name) private readonly articleModel: Model<Article>,
   ) {}
   test(): string {
     return 'article route testing';
@@ -20,7 +20,7 @@ export class ArticleService {
     SUBMIT FUNCTIONS
     for Submitter
   */
-  async create(submitArticleDTO: SubmitArticleDTO): Promise<ArticleDocument> {
+  async create(submitArticleDTO: SubmitArticleDTO): Promise<Article> {
     const newArticle = new this.articleModel({
       articleStatus: ArticleStatus.Unmoderated, // Set default status to unmoderated
       ...submitArticleDTO,
@@ -30,25 +30,20 @@ export class ArticleService {
   }
 
   // Adjust find, update, delete to use _id instead of id
-  async findAll(): Promise<ArticleDocument[]> {
+  async findAll(): Promise<Article[]> {
     return this.articleModel.find().exec();
   }
 
-  async findOne(id: string): Promise<ArticleDocument> {
-    return this.articleModel.findById(id).exec(); // Use _id
+  async findOne(id: string): Promise<Article> {
+    return this.articleModel.findById(id).exec();  // Use _id
   }
 
-  async update(
-    id: string,
-    updateArticleDto: SubmitArticleDTO,
-  ): Promise<ArticleDocument> {
-    return this.articleModel
-      .findByIdAndUpdate(id, updateArticleDto, { new: true })
-      .exec(); // Use _id
+  async update(id: string, updateArticleDto: UpdateArticleDTO): Promise<Article> {
+    return this.articleModel.findByIdAndUpdate(id, updateArticleDto, { new: true }).exec();  // Use _id
   }
 
-  async remove(id: string): Promise<ArticleDocument> {
-    return this.articleModel.findByIdAndDelete(id).exec(); // Use _id
+  async remove(id: string): Promise<Article> {
+    return this.articleModel.findByIdAndDelete(id).exec();  // Use _id
   }
 
   /*
@@ -65,7 +60,7 @@ export class ArticleService {
 
   // Finds all unmoderated articles in the DB
   async findUnmoderatedArticles(): Promise<Article[]> {
-    return await this.articleModel
+    return this.articleModel
       .find({ articleStatus: ArticleStatus.Unmoderated })
       .exec();
   }
