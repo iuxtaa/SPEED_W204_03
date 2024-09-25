@@ -22,11 +22,11 @@ export class ArticleService {
   */
   async create(submitArticleDTO: SubmitArticleDTO): Promise<Article> {
     const newArticle = new this.articleModel({
-      articleStatus: ArticleStatus.Unmoderated,  // Set default status to unmoderated
+      articleStatus: ArticleStatus.Unmoderated, // Set default status to unmoderated
       ...submitArticleDTO,
     });
 
-    return newArticle.save();  // Save returns the document with the auto-generated _id
+    return newArticle.save(); // Save returns the document with the auto-generated _id
   }
 
   // Adjust find, update, delete to use _id instead of id
@@ -45,7 +45,7 @@ export class ArticleService {
   async remove(id: string): Promise<Article> {
     return this.articleModel.findByIdAndDelete(id).exec();  // Use _id
   }
-  
+
   /*
     SEARCH FUNCTIONS
     for Researcher

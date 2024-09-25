@@ -18,17 +18,17 @@ export class SearchAnalysedArticleDTO {
   @IsInt()
   publicationYear: number;
 
-  // @IsOptional()
-  // @IsInt()
-  // volume: number;
+  @IsOptional()
+  @IsInt()
+  volume: number;
 
-  // @IsOptional()
-  // @IsInt()
-  // number: number;
+  @IsOptional()
+  @IsInt()
+  number: number;
 
-  // @IsOptional()
-  // @IsString()
-  // pages: string;
+  @IsOptional()
+  @IsString()
+  pages: string;
 
   @IsOptional()
   @IsString()
@@ -38,5 +38,5 @@ export class SearchAnalysedArticleDTO {
   // seMethod: string;
 
   @IsEnum(ArticleStatus)
-  articleStatus: ArticleStatus; // might change
+  status: ArticleStatus; // might change
 }

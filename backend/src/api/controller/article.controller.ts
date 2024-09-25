@@ -43,7 +43,7 @@ export class ArticleController {
 
   @Get('/search-article-by-id/:id')
   async findOne(@Param('id') id: string) {
-    return this.ArticleService.findOne(id);  // Use _id from request parameter
+    return this.ArticleService.findOne(id); // Use _id from request parameter
   }
 
   @Patch(':id')
@@ -53,7 +53,7 @@ export class ArticleController {
 
   @Delete('/search-article-by-id/:id')
   async remove(@Param('id') id: string) {
-    return this.ArticleService.remove(id);  // Use _id for deletion
+    return this.ArticleService.remove(id); // Use _id for deletion
   }
 
   /*
@@ -62,7 +62,7 @@ export class ArticleController {
   */
 
   // Get analysed articles
-  @Get('/')
+  @Get('/analysed-articles')
   async findAnalysedArticles() {
     try {
       return this.ArticleService.findAnalysededArticles();

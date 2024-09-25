@@ -6,11 +6,10 @@ import {
   MinLength,
   Matches,
 } from 'class-validator';
-import { UserStatus } from '../enums/user.status';
 import { UserDetails } from '../enums/user.details';
 import { UserMessages } from '../enums/user.details';
 
-export class UserSignupDTO {
+export class UserUpdateDTO {
   @IsNotEmpty()
   @MinLength(UserDetails.minFNameLength, {
     message: UserMessages.minFNameLengthMessage,
@@ -29,9 +28,6 @@ export class UserSignupDTO {
   })
   username: string;
 
-  @IsEmail()
-  email: string;
-
   @IsNotEmpty()
   @IsStrongPassword(
     {
@@ -44,11 +40,4 @@ export class UserSignupDTO {
     { message: UserMessages.weakPasswordMessage },
   )
   password: string;
-
-  @IsNotEmpty()
-  @Matches('password', { message: UserMessages.passwordMismatchMessage })
-  passwordConfirmation: string;
-
-  @IsEnum(UserStatus)
-  status: UserStatus;
 }
