@@ -8,5 +8,4 @@ function BootstrapClient() {
 
     return null;
 }
-
 export default BootstrapClient;
