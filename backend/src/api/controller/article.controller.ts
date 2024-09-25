@@ -42,17 +42,20 @@ export class ArticleController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.ArticleService.findOne(id);  // Use _id from request parameter
+    return this.ArticleService.findOne(id); // Use _id from request parameter
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateArticleDto: SubmitArticleDTO) {
-    return this.ArticleService.update(id, updateArticleDto);  // Use _id for update
+  async update(
+    @Param('id') id: string,
+    @Body() updateArticleDto: SubmitArticleDTO,
+  ) {
+    return this.ArticleService.update(id, updateArticleDto); // Use _id for update
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.ArticleService.remove(id);  // Use _id for deletion
+    return this.ArticleService.remove(id); // Use _id for deletion
   }
 
   /*
@@ -61,7 +64,7 @@ export class ArticleController {
   */
 
   // Get analysed articles
-  @Get('/')
+  @Get('/analysed-articles')
   async findAnalysedArticles() {
     try {
       return this.ArticleService.findAnalysededArticles();

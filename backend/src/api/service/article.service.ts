@@ -9,7 +9,8 @@ import { ArticleStatus } from '../enums/articles.status';
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectModel(Article.name) private readonly articleModel: Model<ArticleDocument>,
+    @InjectModel(Article.name)
+    private readonly articleModel: Model<ArticleDocument>,
   ) {}
   test(): string {
     return 'article route testing';
@@ -21,11 +22,11 @@ export class ArticleService {
   */
   async create(submitArticleDTO: SubmitArticleDTO): Promise<ArticleDocument> {
     const newArticle = new this.articleModel({
-      articleStatus: ArticleStatus.Unmoderated,  // Set default status to unmoderated
+      articleStatus: ArticleStatus.Unmoderated, // Set default status to unmoderated
       ...submitArticleDTO,
     });
 
-    return newArticle.save();  // Save returns the document with the auto-generated _id
+    return newArticle.save(); // Save returns the document with the auto-generated _id
   }
 
   // Adjust find, update, delete to use _id instead of id
@@ -34,17 +35,22 @@ export class ArticleService {
   }
 
   async findOne(id: string): Promise<ArticleDocument> {
-    return this.articleModel.findById(id).exec();  // Use _id
+    return this.articleModel.findById(id).exec(); // Use _id
   }
 
-  async update(id: string, updateArticleDto: SubmitArticleDTO): Promise<ArticleDocument> {
-    return this.articleModel.findByIdAndUpdate(id, updateArticleDto, { new: true }).exec();  // Use _id
+  async update(
+    id: string,
+    updateArticleDto: SubmitArticleDTO,
+  ): Promise<ArticleDocument> {
+    return this.articleModel
+      .findByIdAndUpdate(id, updateArticleDto, { new: true })
+      .exec(); // Use _id
   }
 
   async remove(id: string): Promise<ArticleDocument> {
-    return this.articleModel.findByIdAndDelete(id).exec();  // Use _id
+    return this.articleModel.findByIdAndDelete(id).exec(); // Use _id
   }
-  
+
   /*
     SEARCH FUNCTIONS
     for Researcher
