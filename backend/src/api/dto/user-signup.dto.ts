@@ -48,7 +48,4 @@ export class UserSignupDTO {
   @IsNotEmpty()
   @Matches('password', { message: UserMessages.passwordMismatchMessage })
   passwordConfirmation: string;
-
-  @IsEnum(UserStatus)
-  status: UserStatus;
 }
