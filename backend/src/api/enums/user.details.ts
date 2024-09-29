@@ -22,7 +22,7 @@ export class UserMessages {
     'The username or email is taken by an existing account. Please use a different one.';
 
   public static readonly invalidCredentialsMessage =
-    'Credentials do not match. Please try again.';
+    'Credentials are invalid. Please try again.';
 
   public static readonly weakPasswordMessage =
     'This password is too weak. Please try again. Your password must be at least 8 characters long and includes at least 1 number, 1 lowercase character, 1 uppercase character, and 1 symbol.';

@@ -15,6 +15,7 @@ import { error } from 'console';
 import { ArticleService } from '../service/article.service';
 import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
+import { UpdateArticleDTO } from '../dto/update-article.dto';
 
 @Controller('api/articles')
 export class ArticleController {
@@ -40,19 +41,19 @@ export class ArticleController {
     return this.ArticleService.findAll();
   }
 
-  @Get(':id')
+  @Get('/search-article-by-id/:id')
   async findOne(@Param('id') id: string) {
-    return this.ArticleService.findOne(id);  // Use _id from request parameter
+    return this.ArticleService.findOne(id); // Use _id from request parameter
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateArticleDto: SubmitArticleDTO) {
+  async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDTO) {
     return this.ArticleService.update(id, updateArticleDto);  // Use _id for update
   }
 
-  @Delete(':id')
+  @Delete('/search-article-by-id/:id')
   async remove(@Param('id') id: string) {
-    return this.ArticleService.remove(id);  // Use _id for deletion
+    return this.ArticleService.remove(id); // Use _id for deletion
   }
 
   /*
@@ -61,7 +62,7 @@ export class ArticleController {
   */
 
   // Get analysed articles
-  @Get('/')
+  @Get('/analysed-articles')
   async findAnalysedArticles() {
     try {
       return this.ArticleService.findAnalysededArticles();
@@ -77,12 +78,12 @@ export class ArticleController {
     }
   }
 
-  // Get unmoderated articles
+  // ArticleController.ts
   @Get('/unmoderated-articles')
   async findUnmoderatedArticles() {
     try {
-      return this.ArticleService.findUnmoderatedArticles();
-    } catch {
+      return await this.ArticleService.findUnmoderatedArticles(); // Await here
+    } catch (error) {
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
@@ -93,6 +94,7 @@ export class ArticleController {
       );
     }
   }
+
 
   // Get moderated articles
   @Get('/moderated-articles')
