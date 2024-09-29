@@ -11,6 +11,7 @@ import { UserSignupDTO } from '../dto/user-signup.dto';
 import { UserMessages } from '../enums/user.details';
 import { UserStatus } from '../enums/user.status';
 import { UserLoginDTO } from '../dto/user-login.dto';
+import { UserUpdateDTO } from '../dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -21,26 +22,15 @@ export class UserService {
   async findAll(): Promise<User[]> {
     return await this.userModel.find().exec();
   }
-  async signup(CreateNewUserDTO: UserSignupDTO) {
-    const {
-      firstname,
-      lastname,
-      username,
-      email,
-      password,
-      passwordConfirmation,
-    } = CreateNewUserDTO;
+  async signup(UserSignupDTO: UserSignupDTO) {
+    const { username, email, password, passwordConfirmation } = UserSignupDTO;
 
     this.checkPasswordConfirmation(password, passwordConfirmation);
     await this.checkIfUserExists(username, email);
 
     return await this.userModel.create({
-      firstname,
-      lastname,
-      username,
-      email,
-      password,
-      userStatus: UserStatus.General,
+      ...UserSignupDTO,
+      status: UserStatus.General,
     });
   }
 
@@ -61,6 +51,32 @@ export class UserService {
       },
     };
   }
+
+  async createNewUser(CreateNewUserDTO: UserSignupDTO) {
+    const { username, email, password, passwordConfirmation } =
+      CreateNewUserDTO;
+
+    this.checkPasswordConfirmation(password, passwordConfirmation);
+    await this.checkIfUserExists(username, email);
+
+    return await this.userModel.create({
+      ...CreateNewUserDTO,
+    });
+  }
+
+  async update(id: string, updateUserDTO: UserUpdateDTO): Promise<User> {
+    const { username } = updateUserDTO;
+
+    const existingUserByUsername = await this.userModel.findOne({ username });
+    if (existingUserByUsername) {
+      throw new ConflictException(UserMessages.takenCredentialsMessage);
+    }
+
+    return this.userModel
+      .findByIdAndUpdate(id, updateUserDTO, { new: true })
+      .exec();
+  }
+
   private checkPasswordConfirmation(
     password: string,
     passwordConfirmation: string,
@@ -69,6 +85,7 @@ export class UserService {
       throw new BadRequestException(UserMessages.passwordMismatchMessage);
     }
   }
+
   private async checkIfUserExists(
     username: string,
     email: string,

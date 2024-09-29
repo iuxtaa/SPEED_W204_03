@@ -1,42 +1,39 @@
 import { IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 import { ArticleStatus } from '../enums/articles.status';
 
-export class SearchAnalysedArticleDTO {
+export class UpdateArticleDTO {
   @IsOptional()
   @IsString()
-  title: string;
+  title?: string;
 
   @IsOptional()
   @IsString()
-  author: string;
+  author?: string;
 
   @IsOptional()
   @IsString()
-  journalName: string;
+  journalName?: string;
 
   @IsOptional()
   @IsInt()
-  publicationYear: number;
+  publicationYear?: number;
 
   @IsOptional()
   @IsInt()
-  volume: number;
+  volume?: number;  // Optional fields marked with ?
 
   @IsOptional()
   @IsInt()
-  number: number;
+  number?: number;
 
   @IsOptional()
   @IsString()
-  pages: string;
+  pages?: string;
 
   @IsOptional()
   @IsString()
-  doi: string;
+  doi?: string;
 
-  // @IsString()
-  // seMethod: string;
-
-  @IsEnum(ArticleStatus)
-  status: ArticleStatus; // might change
+  // @IsEnum(ArticleStatus)
+  // articleStatus: ArticleStatus;
 }
