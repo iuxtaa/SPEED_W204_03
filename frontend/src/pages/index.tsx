@@ -1,6 +1,13 @@
+
 // src/pages/index.tsx
 import Layout from '../app/layout';
 import styles from '../styles/Home.module.css';  // Ensure you have this CSS module file
+
+import React from 'react';
+import Link from 'next/link';
+import Layout from '../app/layout';
+import styles from '../styles/Home.module.css'; 
+
 
 export default function Home() {
   return (
@@ -22,9 +29,13 @@ export default function Home() {
           <div className={styles.notifications}>
             <h1>Notifications Dashboard</h1>
             <ul>
+
               <li>Notification 1</li>
               <li>Notification 2</li>
               <li>Notification 3</li>
+
+              {/* Notification items would go here */}
+
             </ul>
           </div>
         </div>

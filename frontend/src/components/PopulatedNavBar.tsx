@@ -1,3 +1,4 @@
+
 import { useRouter } from 'next/router';
 import { IoMdArrowDropdown } from "react-icons/io";
 import NavBar from "./nav/NavBar";
@@ -18,7 +19,8 @@ const PopulatedNavBar = () => {
                 Articles <IoMdArrowDropdown />
                 <NavDropdown>
                     <NavItem route="/articles">View Articles</NavItem>
-                    <NavItem route="/articles/new">Submit New</NavItem>
+                    <NavItem route="/articles/new">Submit New Article</NavItem>
+                    <NavItem route="/articles/EditArticle">Edit Article</NavItem>
                 </NavDropdown>
             </NavItem>
             {onAdminPage && (
