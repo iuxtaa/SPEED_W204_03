@@ -1,10 +1,11 @@
 import {
   IsEnum,
+  IsEmail,
   IsStrongPassword,
   IsNotEmpty,
   MinLength,
+  Matches,
 } from 'class-validator';
-import { UserStatus } from '../enums/user.status';
 import { UserDetails } from '../enums/user.details';
 import { UserMessages } from '../enums/user.details';
 
@@ -39,7 +40,4 @@ export class UserUpdateDTO {
     { message: UserMessages.weakPasswordMessage },
   )
   password: string;
-
-  @IsEnum(UserStatus)
-  status: UserStatus;
 }
