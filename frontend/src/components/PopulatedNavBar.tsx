@@ -14,7 +14,8 @@ Home
 Articles <IoMdArrowDropdown />
 <NavDropdown>
 <NavItem route="/articles">View articles</NavItem>
-<NavItem route="/articles/new">Submit new</NavItem>
+<NavItem route="/articles/new">Submit new Article</NavItem>
+<NavItem route="/articles/EditArticle">Edit Article</NavItem>
 </NavDropdown>
 </NavItem>
 </NavBar>
