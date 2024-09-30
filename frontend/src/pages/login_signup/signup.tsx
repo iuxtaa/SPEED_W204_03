@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '../styles/SignupForm.module.css';
+import styles from '../../styles/SignupForm.module.css';
 
 interface SignupInputs {
     firstName: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '../styles/LoginForm.module.css';
+import styles from '../../styles/LoginForm.module.css';
 
 const LoginPage = () => {
     return (
@@ -29,7 +29,7 @@ const LoginPage = () => {
                     </button>
                 </form>
                 <p className={styles.signupPrompt}>
-                    Don&apos;t have an account? <Link href="/signup"><a>Sign Up</a></Link>
+                    Don&apos;t have an account? <Link href="login_signup/signup"><a>Sign Up</a></Link>
                 </p>
             </main>
         </div>
