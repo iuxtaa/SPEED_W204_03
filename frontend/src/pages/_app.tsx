@@ -1,7 +1,6 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
-
 import PopulatedNavBar from "../components/PopulatedNavBar";
 import { useRouter } from 'next/router';
 
@@ -23,15 +22,3 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 }
 
 export default MyApp;
-
-//import PopulatedNavBar from "../components/PopulatedNavBar";
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-return (
-<SessionProvider session={session}>
-
-<Component {...pageProps} />
-</SessionProvider>
-);
-}
-export default MyApp;
-
