@@ -51,6 +51,7 @@
     padding-left: 0; 
     list-style-type: none; 
   }
+
   .editLink {
     margin-left: 20px; /* Or adjust spacing as needed */
     color: blue; /* Choose a color that fits your theme */
@@ -59,5 +60,5 @@
   
   .editLink:hover {
     text-decoration: underline; /* Hover effect */
-  }
+}
   
