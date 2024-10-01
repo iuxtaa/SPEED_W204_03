@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Article, ArticleDocument } from '../schemas/article.schema';
@@ -6,11 +6,13 @@ import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { ArticleStatus } from '../enums/articles.status';
 import { UpdateArticleDTO } from '../dto/update-article.dto';
+import { NotificationService } from './notification.service'; // Import the NotificationService
 
 @Injectable()
 export class ArticleService {
   constructor(
     @InjectModel(Article.name) private readonly articleModel: Model<Article>,
+    private readonly notificationService: NotificationService, // Inject NotificationService
   ) {}
   test(): string {
     return 'article route testing';
@@ -23,6 +25,7 @@ export class ArticleService {
   async create(submitArticleDTO: SubmitArticleDTO): Promise<Article> {
     const newArticle = new this.articleModel({
       articleStatus: ArticleStatus.Unmoderated, // Set default status to unmoderated
+      email: submitArticleDTO.email,
       ...submitArticleDTO,
     });
 
@@ -45,6 +48,50 @@ export class ArticleService {
   async remove(id: string): Promise<Article> {
     return this.articleModel.findByIdAndDelete(id).exec();  // Use _id
   }
+
+  /*
+    Accept and Reject Functions
+    for Moderator
+  */
+
+  // Moderator can reject the article, setting the article status to 'Rejected'
+  async rejectArticle(id: string) {
+    const article = await this.articleModel.findById(id); // Fetch the article by ID
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    article.articleStatus = ArticleStatus.Rejected; // Update article status to "rejected"
+    await article.save();
+
+    // Notify submitter of rejection
+    await this.notificationService.notifySubmitter(article.email, 'Your article was rejected: ');
+
+    return { message: 'Article rejected and submitter notified' };
+  }
+  
+  // Moderator can accept the article, setting the article status to 'Moderated'
+  async acceptArticle(id: string) {
+    // Fetch the article by ID
+    const article = await this.articleModel.findById(id);
+  
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+  
+    // Update article status to 'Moderated'
+    article.articleStatus = ArticleStatus.Moderated;
+    await article.save();
+  
+    // Notify the submitter of the acceptance
+    await this.notificationService.notifySubmitter(article.email, 'Your article has been accepted.');
+  
+    // Notify the analyst that the article is ready for analysis
+    await this.notificationService.notifyAnalyst(article._id.toString());
+  
+    return { message: 'Article accepted and submitter & analyst notified' };
+  }  
 
   /*
     SEARCH FUNCTIONS
