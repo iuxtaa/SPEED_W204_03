@@ -1,0 +1,43 @@
+/* styles/SignupForm.module.css */
+.signupContainer {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.signupForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputField,
+.inputPassword {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.signupButton {
+    padding: 10px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.passwordRequirements {
+    font-size: 0.8rem;   /* Smaller font size */
+    color: #808080;     /* Light grey color */
+    font-style: italic; /* Italic font style */
+    margin-top: -5px;   /* Optional: Adjusts spacing if needed */
+}
+.passwordRequirements {
+    font-size: 0.8rem;          /* Smaller font size */
+    color: #808080;            /* Light grey color */
+    font-style: italic;        /* Italic font style */
+    text-align: left;          /* Align text to the left */
+    margin-top: 5px;           /* Reduce top margin */
+    margin-bottom: 10px;       /* Increase bottom margin for spacing */
+    padding-left: 5px;         /* Add padding to align with the input boxes */
+}
+

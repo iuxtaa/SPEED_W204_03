@@ -1,0 +1,44 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.inputField {
+  margin-bottom: 10px;
+  height: 40px;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.inputPassword {
+  margin-bottom: 20px;
+  height: 40px;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.loginButton {
+  background: blue;
+  color: white;
+  font-size: 16px;
+  height: 40px;
+  cursor: pointer;
+}
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 20px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #333; /* You can change this color based on your design */
+}
