@@ -7,9 +7,6 @@ export type ArticleDocument = HydratedDocument<Article>;
 @Schema()
 export class Article {
 
-  // @Prop()
-  // id: number;
-
   @Prop({ required: true })
   title: string;
 
@@ -36,5 +33,8 @@ export class Article {
 
   @Prop({ required: true })
   articleStatus: ArticleStatus;
+
+  @Prop({ required: true })
+  email: string;
 }
 export const ArticleSchema = SchemaFactory.createForClass(Article);
