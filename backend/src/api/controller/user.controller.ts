@@ -50,8 +50,8 @@ export class UserController {
   @Post('/signup')
   async signup(@Body() userSignupDTO: UserSignupDTO) {
     try {
-      await this.UserService.signup(userSignupDTO);
-      return { message: 'New user created successfully' };
+      const user = await this.UserService.signup(userSignupDTO);
+      return { message: 'New user created successfully', user };
     } catch (error) {
       if (error.status === HttpStatus.CONFLICT) {
         throw new HttpException(
