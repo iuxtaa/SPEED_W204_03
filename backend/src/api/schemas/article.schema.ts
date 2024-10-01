@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { ArticleStatus } from '../enums/articles.status';
+import { ArticleEvidence } from '../enums/article.evidence';
 
 export type ArticleDocument = HydratedDocument<Article>;
 
 @Schema()
 export class Article {
-
   @Prop({ required: true })
   title: string;
 
@@ -32,7 +32,7 @@ export class Article {
   doi: string;
 
   @Prop({ required: true })
-  articleStatus: ArticleStatus;  
+  articleStatus: ArticleStatus;
 
   @Prop()
   evidence: ArticleEvidence;
