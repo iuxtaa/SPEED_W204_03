@@ -94,6 +94,32 @@ export class ArticleService {
   }  
 
   /*
+    Update article Functions
+    for Administrator
+  */
+  async updateArticleDetails(id: string, updateArticleDetailsDto: UpdateArticleDTO): Promise<Article> {
+    const article = await this.articleModel.findById(id);
+    if (!article) {
+      throw new NotFoundException(`Article with ID ${id} not found`);
+    }
+
+    // Update the article details if provided
+    article.title = updateArticleDetailsDto.title ?? article.title;
+    article.author = updateArticleDetailsDto.author ?? article.author;
+    article.journalName = updateArticleDetailsDto.journalName ?? article.journalName;
+    article.publicationYear = updateArticleDetailsDto.publicationYear ?? article.publicationYear;
+    article.volume = updateArticleDetailsDto.volume ?? article.volume;
+    article.number = updateArticleDetailsDto.number ?? article.number;
+    article.pages = updateArticleDetailsDto.pages ?? article.pages;
+    article.doi = updateArticleDetailsDto.doi ?? article.doi;
+    article.articleStatus = updateArticleDetailsDto.articleStatus ?? article.articleStatus;
+    article.evidence = updateArticleDetailsDto.evidence ?? article.evidence;
+    article.claim = updateArticleDetailsDto.claim ?? article.claim;
+
+    return article.save();
+  }
+
+  /*
     SEARCH FUNCTIONS
     for Researcher
   */
