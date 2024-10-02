@@ -56,6 +56,15 @@ export class ArticleController {
     return this.ArticleService.remove(id); // Use _id for deletion
   }
 
+  // For admin to update article details
+  @Put(':id/details')
+  async updateArticleDetails(
+    @Param('id') id: string,
+    @Body() updateArticleDetailsDto: UpdateArticleDTO
+  ) {
+    return this.ArticleService.updateArticleDetails(id, updateArticleDetailsDto);
+  }
+
   /*
     GET FUNCTIONS
     for Articles
