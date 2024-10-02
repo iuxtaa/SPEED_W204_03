@@ -56,6 +56,15 @@ export class ArticleController {
     return this.ArticleService.remove(id); // Use _id for deletion
   }
 
+  // For admin to update article details
+  @Put(':id/details')
+  async updateArticleDetails(
+    @Param('id') id: string,
+    @Body() updateArticleDetailsDto: UpdateArticleDTO
+  ) {
+    return this.ArticleService.updateArticleDetails(id, updateArticleDetailsDto);
+  }
+
   /*
     GET FUNCTIONS
     for Articles
@@ -145,5 +154,23 @@ export class ArticleController {
         { cause: error },
       );
     }
+  }
+
+  /*
+    PATCH FUNCTIONS
+    for Articles
+    for Moderators
+  */
+
+  // Moderator can REJECT the article 
+  @Patch('/:id/reject')
+    async rejectArticle(@Param('id') id: string) {
+        return this.ArticleService.rejectArticle(id);
+  }
+
+  // Moderator can ACCEPT the article (which brings it to the analyst), the article becomes 'Moderated'
+  @Patch('/:id/accept')
+  async acceptArticle(@Param('id') id: string) {
+    return this.ArticleService.acceptArticle(id);
   }
 }
