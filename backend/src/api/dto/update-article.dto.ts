@@ -1,5 +1,6 @@
 import { IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 import { ArticleStatus } from '../enums/articles.status';
+import { ArticleEvidence } from '../enums/article.evidence';
 
 export class UpdateArticleDTO {
   @IsOptional()
@@ -20,7 +21,7 @@ export class UpdateArticleDTO {
 
   @IsOptional()
   @IsInt()
-  volume?: number;  // Optional fields marked with ?
+  volume?: number; // Optional fields marked with ?
 
   @IsOptional()
   @IsInt()
@@ -34,6 +35,14 @@ export class UpdateArticleDTO {
   @IsString()
   doi?: string;
 
-  // @IsEnum(ArticleStatus)
-  // articleStatus: ArticleStatus;
+  @IsEnum(ArticleStatus)
+  articleStatus: ArticleStatus;
+
+  @IsOptional()
+  @IsEnum(ArticleEvidence)
+  evidence?: ArticleEvidence;
+
+  @IsOptional()
+  @IsString()
+  claim?: string;
 }
