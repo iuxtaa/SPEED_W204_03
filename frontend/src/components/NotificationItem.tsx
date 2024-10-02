@@ -1,5 +1,3 @@
-// src/components/NotificationItem.tsx
-
 import React from 'react';
 import styles from '../styles/NotificationItem.module.css';
 
@@ -16,4 +14,3 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ message }) => {
 };
 
 export default NotificationItem;
-
