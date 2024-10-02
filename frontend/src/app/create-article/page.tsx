@@ -1,9 +1,9 @@
-
+// src/pages/CreateArticle/page.tsx
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import styles from "../../styles/SubmitArticlePage.module.css";
+import styles from "../styles/SubmitArticlePage.module.css";
 
 // Define the structure for the form state
 type ArticleFormState = {

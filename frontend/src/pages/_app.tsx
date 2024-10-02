@@ -1,30 +1,20 @@
-// src/pages/_app.tsx
-
-import "../styles/globals.scss"; 
+import "../styles/globals.scss";
 import type { AppProps } from "next/app";
-import { SessionProvider } from "next-auth/react"; 
-import { useRouter } from "next/router"; 
-
+import { SessionProvider } from "next-auth/react";
+//import PopulatedNavBar from "../components/PopulatedNavBar";
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  
   const router = useRouter();
 
-  
-  const noNavBarRoutes = ['/', '/signup']; 
+  // Pages where the NavBar should not be displayed
+  const noNavBarRoutes = ['/', '/signup']; // Adjust these paths as per your route setup
 
-  
+  // Check if the current path is in the list of paths that should not display the NavBar
   const showNavBar = !noNavBarRoutes.includes(router.pathname);
 
-  return (
-    <SessionProvider session={session}>
-      {}
-      {}
-
-      {}
-      <Component {...pageProps} />
-    </SessionProvider>
-  );
+<Component {...pageProps} />
+</SessionProvider>
+);
 }
-
 export default MyApp;
-
 

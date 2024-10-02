@@ -3,8 +3,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/index.module.css';
 
+
 const index = () => {
-    return (
+
+
         <div>
             <Head>
                 <title>Login Page</title>
@@ -36,4 +38,5 @@ const index = () => {
     );
 };
 
-export default index; 
+
+export default index;
