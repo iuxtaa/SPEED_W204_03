@@ -1,9 +1,8 @@
-// src/pages/home.tsx
-
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Layout from '../components/Layout'; 
+import { useSession } from 'next-auth/react'; 
+import Layout from '../components/Layout';
 import styles from '../styles/Home.module.css';
 import NotificationItem from '../components/NotificationItem';
 
@@ -13,11 +12,14 @@ type Notification = {
 };
 
 const Home: React.FC = () => {
+  const { data: session, status } = useSession(); 
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const router = useRouter();
 
+  
+  const userName = session?.user?.name || 'User'; 
   useEffect(() => {
-    // Simulate fetching notifications from an API
+   
     const fetchNotifications = async () => {
       const data: Notification[] = await new Promise((resolve) =>
         setTimeout(
@@ -39,6 +41,7 @@ const Home: React.FC = () => {
   return (
     <Layout>
       <div className={styles.container}>
+        {/* Navigation Bar */}
         <header className={styles.header}>
           <nav className={styles.navbar}>
             <div className={styles.logo}>SPEED</div>
@@ -52,13 +55,22 @@ const Home: React.FC = () => {
               <li>
                 <Link href="/Moderator">Moderator Dashboard</Link>
               </li>
+              <li>
+              <Link href="/Submission">Submit New</Link>
+              </li>
             </ul>
           </nav>
         </header>
 
+        {/* Main Content */}
         <main className={styles.mainContent}>
           <section className={styles.introduction}>
-            <h1>Welcome to SPEED</h1>
+            {/* Personalized Welcome Message */}
+            {status === 'authenticated' ? (
+              <h1 className={styles.welcomeMessage}>Welcome back, {userName}!</h1>
+            ) : (
+              <h1 className={styles.welcomeMessage}>Welcome to SPEED</h1>
+            )}
             <p>
               The <strong>Scientific Publication Evidence Extraction Database (SPEED)</strong> is your all-in-one platform for extracting, managing, and analyzing evidence from scientific publications. Whether you&#39;re a researcher, analyst, or enthusiast, SPEED streamlines the process of gathering data, making it easier to collaborate and share insights.
             </p>
@@ -71,6 +83,7 @@ const Home: React.FC = () => {
             </button>
           </section>
 
+          {/* Notifications Section */}
           <section className={styles.notifications}>
             <h2>Notifications Dashboard</h2>
             {notifications.length === 0 ? (
