@@ -1,0 +1,65 @@
+/* styles/ModeratorPage.module.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .heading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .articleList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .articleItem {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+  }
+  
+  .articleItem h2 {
+    margin-top: 0;
+  }
+  
+  .articleItem p {
+    margin: 10px 0;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .approveButton {
+    background-color: #28a745; /* Green color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .rejectButton {
+    background-color: #dc3545; /* Red color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .approveButton:hover {
+    background-color: #218838;
+  }
+  
+  .rejectButton:hover {
+    background-color: #c82333;
+  }
+  
