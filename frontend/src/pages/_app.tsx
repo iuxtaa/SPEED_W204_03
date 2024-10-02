@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
 
   // Pages where the NavBar should not be displayed
-  const noNavBarRoutes = ['/login_signup/login', '/login_signup/signup']; // Adjust these paths as per your route setup
+  const noNavBarRoutes = ['/', '/signup']; // Adjust these paths as per your route setup
 
   // Check if the current path is in the list of paths that should not display the NavBar
   const showNavBar = !noNavBarRoutes.includes(router.pathname);
