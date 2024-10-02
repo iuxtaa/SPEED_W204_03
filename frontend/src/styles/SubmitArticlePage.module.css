@@ -2,9 +2,9 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 40px 20px;
-    background-color: #e6f2ff; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    background-color: #e6f2ff; /* Light blue background */
+    border-radius: 8px; /* Slightly rounded corners for a softer look */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   }
   
   .form {
@@ -15,7 +15,7 @@
   .heading {
     text-align: center;
     margin-bottom: 30px;
-    color: #003366; 
+    color: #003366; /* Darker blue for contrast */
   }
   
   .formGroup {
@@ -27,21 +27,21 @@
   .formGroup label {
     margin-bottom: 5px;
     font-weight: bold;
-    color: #003366; 
+    color: #003366; /* Darker blue for consistency */
   }
   
   .formGroup input,
   .formGroup textarea {
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #99ccff; 
+    border: 1px solid #99ccff; /* Light blue border */
     border-radius: 5px;
-    background-color: #ffffff; 
+    background-color: #ffffff; /* White background for inputs */
   }
   
   .formGroup input:focus,
   .formGroup textarea:focus {
-    border-color: #66b3ff; 
+    border-color: #66b3ff; /* Slightly darker blue on focus */
     outline: none;
   }
   
@@ -68,7 +68,7 @@
   
   .addButton,
   .removeButton {
-    background-color: #84b8f4; 
+    background-color: #84b8f4; /* Blue color */
     color: white;
     border: none;
     padding: 5px 10px;
@@ -78,7 +78,7 @@
   }
   
   .removeButton {
-    background-color: #dc3545;
+    background-color: #dc3545; /* Red color for remove */
   }
   
   .addButton:hover {
@@ -92,7 +92,7 @@
   .submitButton {
     padding: 12px 20px;
     font-size: 18px;
-    background-color: #28a745; 
+    background-color: #28a745; /* Green color */
     color: white;
     border: none;
     border-radius: 5px;
@@ -104,4 +104,3 @@
   .submitButton:hover {
     background-color: #218838;
   }
-  
