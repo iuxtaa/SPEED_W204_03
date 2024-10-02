@@ -3,8 +3,14 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 //import PopulatedNavBar from "../components/PopulatedNavBar";
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-return (
-<SessionProvider session={session}>
+  
+  const router = useRouter();
+
+  // Pages where the NavBar should not be displayed
+  const noNavBarRoutes = ['/', '/signup']; // Adjust these paths as per your route setup
+
+  // Check if the current path is in the list of paths that should not display the NavBar
+  const showNavBar = !noNavBarRoutes.includes(router.pathname);
 
 <Component {...pageProps} />
 </SessionProvider>

@@ -1,11 +1,11 @@
 import React from "react";
 
-interface SortableTableProps {
+interface SortableAdminProps {
   headers: { key: string; label: string }[];
   data: any[];
 }
 
-const SortableTable: React.FC<SortableTableProps> = ({ headers, data }) => (
+const SortableAdmin: React.FC<SortableAdminProps> = ({ headers, data }) => (
   <table>
     <thead>
       <tr>
@@ -26,4 +26,4 @@ const SortableTable: React.FC<SortableTableProps> = ({ headers, data }) => (
   </table>
 );
 
-export default SortableTable;
+export default SortableAdmin;

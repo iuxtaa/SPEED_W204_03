@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/index.module.css';
 
-
 const LoginPage = () => {
     return (
         <div>
@@ -37,6 +36,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
-
-
+export default index;
