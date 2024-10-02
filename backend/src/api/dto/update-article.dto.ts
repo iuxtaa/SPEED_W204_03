@@ -20,7 +20,7 @@ export class UpdateArticleDTO {
 
   @IsOptional()
   @IsInt()
-  volume?: number; // Optional fields marked with ?
+  volume?: number;  // Optional fields marked with ?
 
   @IsOptional()
   @IsInt()

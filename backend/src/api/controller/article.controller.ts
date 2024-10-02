@@ -174,4 +174,3 @@ export class ArticleController {
     return this.ArticleService.acceptArticle(id);
   }
 }
-
