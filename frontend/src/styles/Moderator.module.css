@@ -1,5 +1,158 @@
 /* Existing styles for container and table */
 .container {
+
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff; /* White background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50; /* Dark blue-gray */
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.error {
+  color: #e74c3c; /* Red color for errors */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.noArticles {
+  text-align: center;
+  font-size: 18px;
+  color: #7f8c8d; /* Gray color */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  color: #2c3e50;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Button Styles */
+.acceptButton,
+.rejectButton {
+  padding: 8px 12px;
+  margin-right: 5px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.acceptButton {
+  background-color: #2ecc71; /* Green */
+  color: #fff;
+}
+
+.rejectButton {
+  background-color: #e74c3c; /* Red */
+  color: #fff;
+}
+
+.acceptButton:hover {
+  background-color: #27ae60;
+}
+
+.rejectButton:hover {
+  background-color: #c0392b;
+}
+
+/* Feedback Modal Styles */
+.feedbackModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedbackContent {
+  background-color: #fff;
+  padding: 20px;
+  width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedbackInput {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  resize: vertical;
+}
+
+.feedbackInput:focus {
+  border-color: #3498db; /* Focus color */
+  outline: none;
+}
+
+.feedbackActions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  background-color: #e74c3c; /* Red */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #c0392b; /* Darker red */
+}
+
+.cancelButton {
+  padding: 10px 20px;
+  background-color: #7f8c8d; /* Gray */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancelButton:hover {
+  background-color: #5a6b7b; /* Darker gray */
+}
+=======
     max-width: 1200px;
     margin: 40px auto;
     padding: 20px;
@@ -151,3 +304,4 @@
   .cancelButton:hover {
     background-color: #5a6b7b; /* Darker gray */
   }
+

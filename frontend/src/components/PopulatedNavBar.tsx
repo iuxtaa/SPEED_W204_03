@@ -7,7 +7,7 @@ import NavItem from "./nav/NavItem";
 const PopulatedNavBar = () => {
     const router = useRouter();
 
-    // Check if the current page is an admin page
+    
     const onAdminPage = router.pathname.startsWith('/admin');
 
     return (
