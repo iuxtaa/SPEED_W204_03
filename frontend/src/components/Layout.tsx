@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '../styles/Layout.module.css';
 
+
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className={styles.layout}>
