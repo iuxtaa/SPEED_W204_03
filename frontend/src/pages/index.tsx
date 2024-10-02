@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '../styles/LoginForm.module.css';
+import styles from '../styles/index.module.css';
 
-const index = () => {
+const LoginPage = () => {
     return (
         <div>
             <Head>
@@ -37,5 +37,3 @@ const index = () => {
 };
 
 export default index;
-
-
