@@ -146,5 +146,23 @@ export class ArticleController {
       );
     }
   }
+
+  /*
+    PATCH FUNCTIONS
+    for Articles
+    for Moderators
+  */
+
+  // Moderator can REJECT the article 
+  @Patch('/:id/reject')
+    async rejectArticle(@Param('id') id: string) {
+        return this.ArticleService.rejectArticle(id);
+  }
+
+  // Moderator can ACCEPT the article (which brings it to the analyst), the article becomes 'Moderated'
+  @Patch('/:id/accept')
+  async acceptArticle(@Param('id') id: string) {
+    return this.ArticleService.acceptArticle(id);
+  }
 }
 

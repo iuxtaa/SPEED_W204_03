@@ -29,6 +29,9 @@ export class SubmitArticleDTO {
   @IsString()
   doi: string;
 
+  @IsString()
+  email: string;
+
   // @IsEnum(ArticleStatus)
   // articleStatus: ArticleStatus;
 }
