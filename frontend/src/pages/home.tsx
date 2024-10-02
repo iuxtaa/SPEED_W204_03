@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router'; // Import useRouter
-import Layout from '../app/layout';
+import { useRouter } from 'next/router';
+import Layout from '../components/Layout'; 
 import styles from '../styles/Home.module.css';
 import NotificationItem from '../components/NotificationItem';
 
@@ -14,7 +14,7 @@ type Notification = {
 
 const Home: React.FC = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
 
   useEffect(() => {
     // Simulate fetching notifications from an API
@@ -40,7 +40,6 @@ const Home: React.FC = () => {
     <Layout>
       <div className={styles.container}>
         <header className={styles.header}>
-          {/* Navigation Bar */}
           <nav className={styles.navbar}>
             <div className={styles.logo}>SPEED</div>
             <ul className={styles.navLinks}>
@@ -67,10 +66,7 @@ const Home: React.FC = () => {
               Explore our tools designed to enhance your research workflow, from automated data extraction to real-time collaboration features. Join our community and accelerate your research today!
             </p>
             {/* Updated Button */}
-            <button
-              className={styles.ctaButton}
-              onClick={() => router.push('/signup')}
-            >
+            <button className={styles.ctaButton} onClick={() => router.push('/signup')}>
               Get Started
             </button>
           </section>
