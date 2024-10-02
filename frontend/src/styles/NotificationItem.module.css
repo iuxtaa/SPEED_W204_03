@@ -1,0 +1,17 @@
+/* src/styles/NotificationItem.module.css */
+
+.notificationItem {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-left: 5px solid #0070f3;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .notificationItem p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
