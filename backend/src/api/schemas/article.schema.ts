@@ -41,6 +41,9 @@ export class Article {
   @Prop()
   claim: string;
 
+  @Prop()
+  feedback: string;
+
   @Prop({ required: true })
   email: string;
 }
