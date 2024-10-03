@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import styles from '../styles/LoginForm.module.css'; // Ensure the path is correct
-import Link from 'next/link';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import styles from "../styles/LoginForm.module.css"; // Ensure the path is correct
+import Link from "next/link";
 
 type LoginFormState = {
   username: string;
@@ -9,8 +9,11 @@ type LoginFormState = {
 };
 
 const IndexPage = () => {
-  const [formState, setFormState] = useState<LoginFormState>({ username: '', password: '' });
-  const [error, setError] = useState('');
+  const [formState, setFormState] = useState<LoginFormState>({
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
   const router = useRouter(); // Get the router object
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,17 +23,17 @@ const IndexPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.username || !formState.password) {
-      setError('Please fill in all fields');
+      setError("Please fill in all fields");
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:8082/api/users/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8082/api/users/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formState)
+        body: JSON.stringify(formState),
       });
 
       if (!response.ok) {
@@ -39,12 +42,12 @@ const IndexPage = () => {
       }
 
       const data = await response.json();
-      console.log('Login successful:', data);
+      console.log("Login successful:", data);
       // Redirect to the homepage
-      router.push('/homepage');
+      router.push("/homepage");
     } catch (err) {
-      console.error('Login failed:', err);
-      setError('Failed to login. Please check your username and password.');
+      console.error("Login failed:", err);
+      setError("Failed to login. Please check your username and password.");
     }
   };
 
@@ -55,20 +58,36 @@ const IndexPage = () => {
       <form className={styles.loginForm} onSubmit={handleSubmit}>
         <label>
           Username:
-          <input type="text" name="username" value={formState.username} onChange={handleChange} className={styles.inputField} required />
+          <input
+            type="text"
+            name="username"
+            value={formState.username}
+            onChange={handleChange}
+            className={styles.inputField}
+            required
+          />
         </label>
         <label>
           Password:
-          <input type="password" name="password" value={formState.password} onChange={handleChange} className={styles.inputField} required />
+          <input
+            type="password"
+            name="password"
+            value={formState.password}
+            onChange={handleChange}
+            className={styles.inputField}
+            required
+          />
         </label>
-        <button type="submit" className={styles.loginButton}>Login</button>
+        <button type="submit" className={styles.loginButton}>
+          Login
+        </button>
       </form>
       <p className={styles.signupLink}>
-  Don&apos;t have an account? 
-  <Link href="/signup">
-    <a style={{ color: 'red' }}>Sign up</a>
-  </Link>
-</p>
+        Don&apos;t have an account?
+        <Link href="/signup">
+          <a style={{ color: "red" }}>Sign up</a>
+        </Link>
+      </p>
     </div>
   );
 };
