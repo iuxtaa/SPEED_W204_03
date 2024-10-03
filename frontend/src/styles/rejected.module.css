@@ -7,62 +7,69 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
+
   .heading {
     text-align: center;
     font-size: 28px;
     color: #2c3e50;
     margin-bottom: 20px;
   }
-  
+
   .error {
     text-align: center;
     font-size: 16px;
     color: #e74c3c;
     margin-bottom: 20px;
   }
-  
   .noArticles {
     text-align: center;
     font-size: 18px;
     color: #7f8c8d;
     margin-top: 20px;
   }
-  
+
   .table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
-  
+
   .table th,
   .table td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
     text-align: left;
   }
-  
+
   .table th {
     background-color: #f2f2f2;
     color: #2c3e50;
   }
+
   
   .table tr:hover {
     background-color: #f5f5f5;
   }
   
   /* Status Styles */
+
+  .table tr:hover {
+    background-color: #f5f5f5;
+  }
+
+
   .rejectedStatus {
     color: #e74c3c;
     font-weight: bold;
   }
-  
+
+
   .approvedStatus {
     color: #2ecc71;
     font-weight: bold;
   }
-  
   /* Button Styles */
+
   .buttonApprove,
   .buttonReject {
     padding: 8px 12px;
@@ -72,7 +79,7 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .buttonApprove {
     background-color: #2ecc71; /* Green */
     color: white;
@@ -90,4 +97,21 @@
   .buttonReject:hover {
     background-color: #c0392b;
   }
-  
+
+  .buttonApprove {
+    background-color: #2ecc71; 
+    color: white;
+  }
+
+  .buttonReject {
+    background-color: #e74c3c; 
+    color: white;
+  }
+
+  .buttonApprove:hover {
+    background-color: #27ae60;
+  }
+
+  .buttonReject:hover {
+    background-color: #c0392b;
+  }

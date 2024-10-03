@@ -13,7 +13,7 @@ const PopulatedNavBar = () => {
     return (
         <NavBar>
             <div className="speedTitle">SPEED</div> 
-            <NavItem route="/homepage" end>Home</NavItem>
+            <NavItem route="/home" end>Home</NavItem>
             <NavItem dropdown route="/articles">
                 Articles <IoMdArrowDropdown />
                 <NavDropdown>
