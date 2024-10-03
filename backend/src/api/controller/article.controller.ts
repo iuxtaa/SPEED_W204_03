@@ -5,14 +5,17 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Patch,
   Param,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
-import { ArticleService } from '../service/article.service';
-import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { error } from 'console';
+import { ArticleService } from '../service/article.service';
+import { SubmitArticleDTO } from '../dto/submit-article.dto';
+import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
+import { UpdateArticleDTO } from '../dto/update-article.dto';
 
 @Controller('api/articles')
 export class ArticleController {
@@ -24,12 +27,51 @@ export class ArticleController {
   }
 
   /*
+    POST, GET, PUT, DELETE FUNCTIONS
+    for Articles
+  */
+
+  @Post()
+  async create(@Body() submitArticleDTO: SubmitArticleDTO) {
+    return this.ArticleService.create(submitArticleDTO);
+  }
+
+  @Get()
+  async findAll() {
+    return this.ArticleService.findAll();
+  }
+
+  @Get('/search-article-by-id/:id')
+  async findOne(@Param('id') id: string) {
+    return this.ArticleService.findOne(id); // Use _id from request parameter
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDTO) {
+    return this.ArticleService.update(id, updateArticleDto);  // Use _id for update
+  }
+
+  @Delete('/search-article-by-id/:id')
+  async remove(@Param('id') id: string) {
+    return this.ArticleService.remove(id); // Use _id for deletion
+  }
+
+  // For admin to update article details
+  @Put(':id/details')
+  async updateArticleDetails(
+    @Param('id') id: string,
+    @Body() updateArticleDetailsDto: UpdateArticleDTO
+  ) {
+    return this.ArticleService.updateArticleDetails(id, updateArticleDetailsDto);
+  }
+
+  /*
     GET FUNCTIONS
     for Articles
   */
 
   // Get analysed articles
-  @Get('/analysed')
+  @Get('/analysed-articles')
   async findAnalysedArticles() {
     try {
       return this.ArticleService.findAnalysededArticles();
@@ -45,12 +87,12 @@ export class ArticleController {
     }
   }
 
-  // Get unmoderated articles
-  @Get('/unmoderated')
+  // ArticleController.ts
+  @Get('/unmoderated-articles')
   async findUnmoderatedArticles() {
     try {
-      return this.ArticleService.findUnmoderatedArticles();
-    } catch {
+      return await this.ArticleService.findUnmoderatedArticles(); // Await here
+    } catch (error) {
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
@@ -62,8 +104,9 @@ export class ArticleController {
     }
   }
 
-  // Get unmoderated articles
-  @Get('/moderated')
+
+  // Get moderated articles
+  @Get('/moderated-articles')
   async findModeratedArticles() {
     try {
       return this.ArticleService.findModeratedArticles();
@@ -80,7 +123,7 @@ export class ArticleController {
   }
 
   // Get rejected articles
-  @Get('/rejected')
+  @Get('/rejected-articles')
   async findRejectedArticles() {
     try {
       return this.ArticleService.findRejectedArticles();
@@ -97,7 +140,7 @@ export class ArticleController {
   }
 
   // Get articles by search query
-  @Get('/search')
+  @Get('/search-article')
   async findArticlesBySearchQuery(@Query() query: SearchAnalysedArticleDTO) {
     try {
       return this.ArticleService.findArticle(query);
@@ -111,5 +154,23 @@ export class ArticleController {
         { cause: error },
       );
     }
+  }
+
+  /*
+    PATCH FUNCTIONS
+    for Articles
+    for Moderators
+  */
+
+  // Moderator can REJECT the article 
+  @Patch('/:id/reject')
+    async rejectArticle(@Param('id') id: string) {
+        return this.ArticleService.rejectArticle(id);
+  }
+
+  // Moderator can ACCEPT the article (which brings it to the analyst), the article becomes 'Moderated'
+  @Patch('/:id/accept')
+  async acceptArticle(@Param('id') id: string) {
+    return this.ArticleService.acceptArticle(id);
   }
 }
