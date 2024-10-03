@@ -1,0 +1,69 @@
+/* Admin Page Styles */
+.adminContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.adminHeader {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.adminTableThead {
+    background-color: #007BFF;
+    color: #ffffff;
+}
+
+.adminTableTh,
+.adminTableTd {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.adminTableTbodyTrOdd {
+    background-color: #f2f2f2;
+}
+
+.adminTableTbodyTrHover:hover {
+    background-color: #f1f1f1;
+}
+
+.statusButton {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+.statusActive {
+    background-color: #28a745;
+}
+
+.statusInactive {
+    background-color: #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .adminContainer {
+        padding: 10px;
+    }
+
+    .adminTableTh,
+    .adminTableTd {
+        padding: 8px;
+    }
+}
