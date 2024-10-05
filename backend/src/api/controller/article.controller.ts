@@ -31,32 +31,39 @@ export class ArticleController {
     for Articles
   */
 
+  // submits articles and sends it to the database
   @Post()
   async create(@Body() submitArticleDTO: SubmitArticleDTO) {
     return this.ArticleService.create(submitArticleDTO);
   }
 
+  // gets all articles from the database
   @Get()
   async findAll() {
     return this.ArticleService.findAll();
   }
 
+  // find article by its ID
   @Get('/search-article-by-id/:id')
   async findOne(@Param('id') id: string) {
     return this.ArticleService.findOne(id); // Use _id from request parameter
   }
 
+  // Updates article, needs ID of the article and a body
+  // can be used by ANALYST to add claim and evidence
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDTO) {
     return this.ArticleService.update(id, updateArticleDto);  // Use _id for update
   }
 
-  @Delete('/search-article-by-id/:id')
+  // Deletes an article by ID
+  @Delete('/delete-article-by-id/:id')
   async remove(@Param('id') id: string) {
     return this.ArticleService.remove(id); // Use _id for deletion
   }
 
-  // For admin to update article details
+  // For admin to update article details, needs ID of the article and a body
+  // can be used by ADMIN to edit ANY details
   @Put(':id/details')
   async updateArticleDetails(
     @Param('id') id: string,
@@ -122,7 +129,7 @@ export class ArticleController {
     }
   }
 
-  // Get rejected articles
+  // Gets all rejected articles
   @Get('/rejected-articles')
   async findRejectedArticles() {
     try {
