@@ -7,7 +7,6 @@ export type ArticleDocument = HydratedDocument<Article>;
 
 @Schema()
 export class Article {
-
   @Prop({ required: true })
   title: string;
 
@@ -33,13 +32,16 @@ export class Article {
   doi: string;
 
   @Prop({ required: true })
-  articleStatus: ArticleStatus;  
+  articleStatus: ArticleStatus;
 
   @Prop()
   evidence: ArticleEvidence;
 
   @Prop()
   claim: string;
+
+  @Prop()
+  feedback: string;
 
   @Prop({ required: true })
   email: string;

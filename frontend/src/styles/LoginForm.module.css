@@ -1,0 +1,46 @@
+/* styles/LoginForm.module.css */
+.loginContainer {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputField {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.loginButton {
+  padding: 10px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+.signupLink a {
+  color: red; 
+  text-decoration: none; 
+}
+
+.signupLink a:hover {
+  text-decoration: underline; 
+}

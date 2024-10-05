@@ -55,7 +55,7 @@ export class ArticleService {
   */
 
   // Moderator can reject the article, setting the article status to 'Rejected'
-  async rejectArticle(id: string) {
+  async rejectArticle(id: string, feedback: string) {
     const article = await this.articleModel.findById(id); // Fetch the article by ID
 
     if (!article) {
@@ -63,6 +63,7 @@ export class ArticleService {
     }
 
     article.articleStatus = ArticleStatus.Rejected; // Update article status to "rejected"
+    article.feedback = feedback;
     await article.save();
 
     // Notify submitter of rejection
