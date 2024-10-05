@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/SubmitArticlePage.module.css';
 
-const SubmissionForm: React.FC = () => {
+const Submission: React.FC = () => {
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -216,4 +216,4 @@ const SubmissionForm: React.FC = () => {
   );
 };
 
-export default SubmissionForm;
+export default Submission;
