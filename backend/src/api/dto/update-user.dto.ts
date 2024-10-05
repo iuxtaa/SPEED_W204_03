@@ -7,7 +7,6 @@ import {
 import { UserStatus } from '../enums/user.status';
 import { UserDetails } from '../enums/user.details';
 import { UserMessages } from '../enums/user.details';
-
 export class UserUpdateDTO {
   @IsNotEmpty()
   @MinLength(UserDetails.minFNameLength, {
