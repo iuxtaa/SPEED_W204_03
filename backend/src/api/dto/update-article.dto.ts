@@ -34,8 +34,9 @@ export class UpdateArticleDTO {
   @IsString()
   doi?: string;
 
+  @IsOptional()
   @IsEnum(ArticleStatus)
-  articleStatus: ArticleStatus;
+  articleStatus?: ArticleStatus;
 
   @IsOptional()
   @IsEnum(ArticleEvidence)
