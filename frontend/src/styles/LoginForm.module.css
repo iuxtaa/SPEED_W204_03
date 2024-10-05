@@ -1,44 +1,46 @@
+/* styles/LoginForm.module.css */
 .loginContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .loginForm {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  gap: 10px;
 }
 
 .inputField {
-  margin-bottom: 10px;
-  height: 40px;
+  padding: 10px;
   font-size: 16px;
-  padding-left: 10px;
-}
-
-.inputPassword {
-  margin-bottom: 20px;
-  height: 40px;
-  font-size: 16px;
-  padding-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .loginButton {
-  background: blue;
+  padding: 10px;
+  background-color: #0070f3;
   color: white;
-  font-size: 16px;
-  height: 40px;
+  border: none;
   cursor: pointer;
+  margin-top: 10px;
 }
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 20px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #333; /* You can change this color based on your design */
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+.signupLink a {
+  color: red; 
+  text-decoration: none; 
+}
+
+.signupLink a:hover {
+  text-decoration: underline; 
 }

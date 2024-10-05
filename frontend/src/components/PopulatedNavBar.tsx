@@ -7,18 +7,18 @@ import NavItem from "./nav/NavItem";
 const PopulatedNavBar = () => {
     const router = useRouter();
 
-    // Check if the current page is an admin page
+    
     const onAdminPage = router.pathname.startsWith('/admin');
 
     return (
         <NavBar>
             <div className="speedTitle">SPEED</div> 
-            <NavItem route="/" end>Home</NavItem>
+            <NavItem route="/home" end>Home</NavItem>
             <NavItem dropdown route="/articles">
                 Articles <IoMdArrowDropdown />
                 <NavDropdown>
                     <NavItem route="/articles">View Articles</NavItem>
-                    <NavItem route="/articles/new">Submit New</NavItem>
+                    <NavItem route="/Submission">Submit New</NavItem>
                 </NavDropdown>
             </NavItem>
             {onAdminPage && (

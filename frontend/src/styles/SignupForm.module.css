@@ -1,5 +1,44 @@
-/* styles/SignupForm.module.css */
 .signupContainer {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #ffffff; /* Set a white background for better contrast */
+    border-radius: 8px; /* Rounded corners for a smoother look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Dual-layer shadows for a deeper effect */
+}
+
+
+.signupForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* adds space between form fields */
+}
+
+.inputField {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.signupButton {
+    padding: 10px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px; /* adds space above the button */
+}
+
+.error {
+    color: red;
+    margin-bottom: 10px; /* space below the error message */
+}
+
+.label {
+    margin-bottom: 5px; /* space below the label */
+}.signupContainer {
     max-width: 400px;
     margin: auto;
     padding: 20px;
@@ -9,13 +48,14 @@
 .signupForm {
     display: flex;
     flex-direction: column;
+    gap: 10px; /* adds space between form fields */
 }
 
-.inputField,
-.inputPassword {
-    margin-bottom: 10px;
+.inputField {
     padding: 10px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .signupButton {
@@ -24,20 +64,38 @@
     color: white;
     border: none;
     cursor: pointer;
+    margin-top: 10px; /* adds space above the button */
 }
+
+.error {
+    color: red;
+    margin-bottom: 10px; /* space below the error message */
+}
+
+.label {
+    margin-bottom: 5px; /* space below the label */
+}
+
 .passwordRequirements {
-    font-size: 0.8rem;   /* Smaller font size */
-    color: #808080;     /* Light grey color */
-    font-style: italic; /* Italic font style */
-    margin-top: -5px;   /* Optional: Adjusts spacing if needed */
+    font-style: italic; /* Italicizes the text */
+    color: #555; /* Sets a medium gray color */
+    font-size: 0.9rem; /* Smaller font size for subtlety */
+    margin-bottom: 10px; /* Adds spacing below the password requirements */
 }
-.passwordRequirements {
-    font-size: 0.8rem;          /* Smaller font size */
-    color: #808080;            /* Light grey color */
-    font-style: italic;        /* Italic font style */
-    text-align: left;          /* Align text to the left */
-    margin-top: 5px;           /* Reduce top margin */
-    margin-bottom: 10px;       /* Increase bottom margin for spacing */
-    padding-left: 5px;         /* Add padding to align with the input boxes */
+
+.loginLink {
+    margin-top: 20px; /* Adds space above the link */
+    font-size: 1rem; /* Ensures consistent font size */
+    text-align: center; /* Centers the text */
 }
+
+.loginLink a {
+    color: red; /* Only makes the 'Login' part red */
+    text-decoration: none; /* Optionally removes underline from links */
+}
+
+.loginLink a:hover {
+    text-decoration: underline; /* Restores underline on hover for better user interaction */
+}
+
 
