@@ -52,6 +52,7 @@ describe('ArticleController', () => {
     });
   });
 
+  // Creates an article submission and submits it
   describe('create', () => {
     it('should call service to create an article', async () => {
       const dto: SubmitArticleDTO = {
@@ -77,6 +78,7 @@ describe('ArticleController', () => {
     });
   });
 
+  // Finds article by its ID
   describe('findOne', () => {
     it('should call service to find an article by ID', async () => {
       const articleId = 'some-article-id';
