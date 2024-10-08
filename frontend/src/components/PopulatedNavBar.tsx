@@ -25,9 +25,7 @@ const PopulatedNavBar = () => {
                 <NavItem dropdown>
                     User Management <IoMdArrowDropdown />
                     <NavDropdown>
-                        <NavItem route="/admin/users">View Users</NavItem>
-                        <NavItem route="/admin/permissions">Manage Permissions</NavItem>
-                        <NavItem route="/admin/settings">Settings</NavItem>
+                        <NavItem route="/users">View Users</NavItem>
                     </NavDropdown>
                 </NavItem>
             )}
