@@ -34,8 +34,8 @@ export class SearchAnalysedArticleDTO {
   @IsString()
   doi: string;
 
-  // @IsString()
-  // seMethod: string;
+  @IsString()
+  seMethod: string;
 
   @IsEnum(ArticleStatus)
   status: ArticleStatus; // might change
