@@ -1,0 +1,123 @@
+/* src/styles/AnalystDashboard.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #f4f4f9;
+}
+
+.heading {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 20px;
+}
+
+.mainContent {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.sidebar {
+  flex: 1;
+  max-width: 300px;
+  border-right: 1px solid #ddd;
+  padding-right: 20px;
+}
+
+.subHeading {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.noArticles {
+  font-style: italic;
+}
+
+.articleList {
+  list-style: none;
+  padding: 0;
+}
+
+.articleItem {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.articleItem:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #d1ecf1;
+}
+
+.articleTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.articleInfo {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.formContainer {
+  flex: 2;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.textAreaInput {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.selectInput {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.submitButton {
+  background-color: #0070f3;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #005bb5;
+}

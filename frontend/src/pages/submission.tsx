@@ -95,7 +95,6 @@ const Submission: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Submit Article</h1>
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       {errors.api && <p style={{ color: 'red' }}>{errors.api}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* Title */}
@@ -109,7 +108,7 @@ const Submission: React.FC = () => {
           />
           {errors.title && <span style={{ color: 'red' }}>{errors.title}</span>}
         </div>
-
+  
         {/* Author */}
         <div className={styles.formGroup}>
           <label>Author:</label>
@@ -121,7 +120,7 @@ const Submission: React.FC = () => {
           />
           {errors.author && <span style={{ color: 'red' }}>{errors.author}</span>}
         </div>
-
+  
         {/* Journal Name */}
         <div className={styles.formGroup}>
           <label>Journal Name:</label>
@@ -135,7 +134,7 @@ const Submission: React.FC = () => {
             <span style={{ color: 'red' }}>{errors.journalName}</span>
           )}
         </div>
-
+  
         {/* Publication Year */}
         <div className={styles.formGroup}>
           <label>Publication Year:</label>
@@ -149,7 +148,7 @@ const Submission: React.FC = () => {
             <span style={{ color: 'red' }}>{errors.publicationYear}</span>
           )}
         </div>
-
+  
         {/* Volume (Optional) */}
         <div className={styles.formGroup}>
           <label>Volume (optional):</label>
@@ -160,7 +159,7 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-
+  
         {/* Number (Optional) */}
         <div className={styles.formGroup}>
           <label>Number (optional):</label>
@@ -171,7 +170,7 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-
+  
         {/* Pages (Optional) */}
         <div className={styles.formGroup}>
           <label>Pages (optional):</label>
@@ -182,7 +181,7 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-
+  
         {/* DOI */}
         <div className={styles.formGroup}>
           <label>DOI:</label>
@@ -194,7 +193,7 @@ const Submission: React.FC = () => {
           />
           {errors.doi && <span style={{ color: 'red' }}>{errors.doi}</span>}
         </div>
-
+  
         {/* Email */}
         <div className={styles.formGroup}>
           <label>Email:</label>
@@ -206,7 +205,14 @@ const Submission: React.FC = () => {
           />
           {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
         </div>
-
+  
+        {/* Success Message Display */}
+        {successMessage && (
+          <div className={styles.successMessage}>
+            <p>{successMessage}</p>
+          </div>
+        )}
+  
         {/* Submit Button */}
         <button type="submit" className={styles.submitButton}>
           Submit Article
@@ -215,5 +221,4 @@ const Submission: React.FC = () => {
     </div>
   );
 };
-
 export default Submission;
