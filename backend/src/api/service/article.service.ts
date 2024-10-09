@@ -7,6 +7,7 @@ import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { ArticleStatus } from '../enums/articles.status';
 import { UpdateArticleDTO } from '../dto/update-article.dto';
 import { NotificationService } from './notification.service'; // Import the NotificationService
+import { AnalyseArticleDTO } from '../dto/analyse-article.dto';
 
 @Injectable()
 export class ArticleService {
@@ -38,15 +39,20 @@ export class ArticleService {
   }
 
   async findOne(id: string): Promise<Article> {
-    return this.articleModel.findById(id).exec();  // Use _id
+    return this.articleModel.findById(id).exec(); // Use _id
   }
 
-  async update(id: string, updateArticleDto: UpdateArticleDTO): Promise<Article> {
-    return this.articleModel.findByIdAndUpdate(id, updateArticleDto, { new: true }).exec();  // Use _id
+  async update(
+    id: string,
+    updateArticleDto: UpdateArticleDTO,
+  ): Promise<Article> {
+    return this.articleModel
+      .findByIdAndUpdate(id, updateArticleDto, { new: true })
+      .exec(); // Use _id
   }
 
   async remove(id: string): Promise<Article> {
-    return this.articleModel.findByIdAndDelete(id).exec();  // Use _id
+    return this.articleModel.findByIdAndDelete(id).exec(); // Use _id
   }
 
   /*
@@ -67,38 +73,47 @@ export class ArticleService {
     await article.save();
 
     // Notify submitter of rejection
-    await this.notificationService.notifySubmitter(article.email, 'Your article was rejected: ');
+    await this.notificationService.notifySubmitter(
+      article.email,
+      'Your article was rejected: ',
+    );
 
     return { message: 'Article rejected and submitter notified' };
   }
-  
+
   // Moderator can accept the article, setting the article status to 'Moderated'
   async acceptArticle(id: string) {
     // Fetch the article by ID
     const article = await this.articleModel.findById(id);
-  
+
     if (!article) {
       throw new NotFoundException('Article not found');
     }
-  
+
     // Update article status to 'Moderated'
     article.articleStatus = ArticleStatus.Moderated;
     await article.save();
-  
+
     // Notify the submitter of the acceptance
-    await this.notificationService.notifySubmitter(article.email, 'Your article has been accepted.');
-  
+    await this.notificationService.notifySubmitter(
+      article.email,
+      'Your article has been accepted.',
+    );
+
     // Notify the analyst that the article is ready for analysis
     await this.notificationService.notifyAnalyst(article._id.toString());
-  
+
     return { message: 'Article accepted and submitter & analyst notified' };
-  }  
+  }
 
   /*
     Update article Functions
     for Administrator
   */
-  async updateArticleDetails(id: string, updateArticleDetailsDto: UpdateArticleDTO): Promise<Article> {
+  async updateArticleDetails(
+    id: string,
+    updateArticleDetailsDto: UpdateArticleDTO,
+  ): Promise<Article> {
     const article = await this.articleModel.findById(id);
     if (!article) {
       throw new NotFoundException(`Article with ID ${id} not found`);
@@ -107,19 +122,43 @@ export class ArticleService {
     // Update the article details if provided
     article.title = updateArticleDetailsDto.title ?? article.title;
     article.author = updateArticleDetailsDto.author ?? article.author;
-    article.journalName = updateArticleDetailsDto.journalName ?? article.journalName;
-    article.publicationYear = updateArticleDetailsDto.publicationYear ?? article.publicationYear;
+    article.journalName =
+      updateArticleDetailsDto.journalName ?? article.journalName;
+    article.publicationYear =
+      updateArticleDetailsDto.publicationYear ?? article.publicationYear;
     article.volume = updateArticleDetailsDto.volume ?? article.volume;
     article.number = updateArticleDetailsDto.number ?? article.number;
     article.pages = updateArticleDetailsDto.pages ?? article.pages;
     article.doi = updateArticleDetailsDto.doi ?? article.doi;
-    article.articleStatus = updateArticleDetailsDto.articleStatus ?? article.articleStatus;
+    article.articleStatus =
+      updateArticleDetailsDto.articleStatus ?? article.articleStatus;
     article.evidence = updateArticleDetailsDto.evidence ?? article.evidence;
     article.claim = updateArticleDetailsDto.claim ?? article.claim;
 
     return article.save();
   }
 
+  /* 
+    Update Function
+    for Analyser
+  */
+  async analyseArticle(
+    id: string,
+    AnalyseArticleDTO: AnalyseArticleDTO,
+  ): Promise<Article> {
+    const article = await this.articleModel.findById(id);
+
+    article.articleStatus = ArticleStatus.Analysed;
+    article.save();
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    return this.articleModel
+      .findByIdAndUpdate(id, AnalyseArticleDTO, { new: true })
+      .exec();
+  }
   /*
     SEARCH FUNCTIONS
     for Researcher
@@ -150,6 +189,13 @@ export class ArticleService {
   async findRejectedArticles(): Promise<Article[]> {
     return await this.articleModel
       .find({ articleStatus: ArticleStatus.Rejected })
+      .exec();
+  }
+
+  // Finds all rejected articles from a user
+  async findRejectedArticlesByUser(email: string): Promise<Article[]> {
+    return await this.articleModel
+      .find({ articleStatus: ArticleStatus.Rejected, email })
       .exec();
   }
 

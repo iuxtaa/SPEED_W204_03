@@ -45,5 +45,8 @@ export class Article {
 
   @Prop({ required: true })
   email: string;
+
+  @Prop()
+  seMethod: string;
 }
 export const ArticleSchema = SchemaFactory.createForClass(Article);
