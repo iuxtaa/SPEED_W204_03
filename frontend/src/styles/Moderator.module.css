@@ -1,49 +1,35 @@
-/* Existing styles for container and table */
+/* Moderator.module.css */
+
 .container {
-  max-width: 1200px;
-  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-  background-color: #ffffff; /* White background */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .heading {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #2c3e50; /* Dark blue-gray */
-  font-size: 32px;
-  font-weight: bold;
-}
-
-.error {
-  color: #e74c3c; /* Red color for errors */
-  text-align: center;
+  font-size: 2em;
   margin-bottom: 20px;
 }
 
-.noArticles {
-  text-align: center;
-  font-size: 18px;
-  color: #7f8c8d; /* Gray color */
-}
-
 .table {
-  width: 100%;
+  width: 80%;
   border-collapse: collapse;
   margin-top: 20px;
+  border: 1px solid #ddd;
 }
 
 .table th,
 .table td {
+  border: 1px solid #ddd;
   padding: 12px 15px;
-  border-bottom: 1px solid #ddd;
   text-align: left;
 }
 
 .table th {
   background-color: #f2f2f2;
-  color: #2c3e50;
+  font-weight: bold;
 }
 
 .table tr:nth-child(even) {
@@ -55,70 +41,50 @@
   gap: 10px;
 }
 
-/* Button Styles */
-.acceptButton,
-.rejectButton {
-  padding: 8px 12px;
-  margin-right: 5px;
-  font-size: 14px;
+.acceptButton {
+  background-color: #4CAF50;
+  color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
 }
 
-.acceptButton {
-  background-color: #2ecc71; /* Green */
-  color: #fff;
-}
-
 .rejectButton {
-  background-color: #e74c3c; /* Red */
-  color: #fff;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
-.acceptButton:hover {
-  background-color: #27ae60;
-}
-
+.acceptButton:hover,
 .rejectButton:hover {
-  background-color: #c0392b;
+  opacity: 0.8;
 }
 
-/* Feedback Modal Styles */
 .feedbackModal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .feedbackContent {
-  background-color: #fff;
-  padding: 20px;
-  width: 500px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .feedbackInput {
   width: 100%;
   height: 100px;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #bdc3c7;
-  border-radius: 5px;
   margin-bottom: 20px;
-  resize: vertical;
-}
-
-.feedbackInput:focus {
-  border-color: #3498db; /* Focus color */
-  outline: none;
+  padding: 10px;
+  border: 1px solid #ddd;
 }
 
 .feedbackActions {
@@ -127,27 +93,29 @@
 }
 
 .submitButton {
-  padding: 10px 20px;
-  background-color: #e74c3c; /* Red */
+  background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
-}
-
-.submitButton:hover {
-  background-color: #c0392b; /* Darker red */
 }
 
 .cancelButton {
-  padding: 10px 20px;
-  background-color: #7f8c8d; /* Gray */
+  background-color: #f44336;
   color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
 }
 
-.cancelButton:hover {
-  background-color: #5a6b7b; /* Darker gray */
+.noArticles {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
 }

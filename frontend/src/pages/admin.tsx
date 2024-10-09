@@ -3,6 +3,7 @@ import Head from "next/head";
 import styles from "../styles/adminForm.module.css";
 import { useRouter } from "next/router";
 
+
 type Article = {
   _id: string;
   title: string;
@@ -21,6 +22,7 @@ const AdminPage: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
+
     const fetchArticles = async () => {
       try {
         const response = await fetch(
@@ -86,6 +88,7 @@ const AdminPage: React.FC = () => {
     if (editFormData) {
       setEditFormData({ ...editFormData, [name]: value });
     }
+
   };
 
   const handleDelete = async (id: string) => {
@@ -115,6 +118,7 @@ const AdminPage: React.FC = () => {
         <title>Admin&apos;s Article Dashboard</title>
       </Head>
       <h1 className={styles.heading}>Admin&apos;s Article Dashboard</h1>
+
       {error && <p className={styles.error}>{error}</p>}
       {articles.length === 0 ? (
         <p className={styles.noArticles}>No analyzed articles available.</p>
