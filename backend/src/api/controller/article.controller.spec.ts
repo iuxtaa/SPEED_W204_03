@@ -61,10 +61,12 @@ describe('ArticleController', () => {
         journalName: 'Test Journal',
         publicationYear: 2023,
         doi: '123',
-        email: '123@gmail.com'
+        // email: '123@gmail.com'
       };
 
-      await controller.create(dto);
+      const email = '123@gmail.com';
+
+      await controller.create(dto, email);
       expect(service.create).toHaveBeenCalledWith(dto);
     });
   });
