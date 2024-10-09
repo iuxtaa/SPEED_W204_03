@@ -1,10 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Article, ArticleDocument } from '../schemas/article.schema';
 import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { ArticleStatus } from '../enums/articles.status';
+import { ArticleRating } from '../enums/article.evidence';
 import { UpdateArticleDTO } from '../dto/update-article.dto';
 import { NotificationService } from './notification.service'; // Import the NotificationService
 import { AnalyseArticleDTO } from '../dto/analyse-article.dto';
@@ -151,17 +156,21 @@ export class ArticleService {
       throw new NotFoundException('Article not found');
     }
 
-    // Update the rating count and sum
-    article.ratingCount += 1;
-    article.ratingSum += rating;
+    if (rating < ArticleRating.min || rating > ArticleRating.max) {
+      throw new BadRequestException('Please enter a rating between 0 to 5');
+    } else {
+      // Update the rating count and sum
+      article.ratingCount += 1;
+      article.ratingSum += rating;
 
-    // Calculate the new average rating
-    article.rating = article.ratingSum / article.ratingCount;
+      // Calculate the new average rating
+      article.rating = article.ratingSum / article.ratingCount;
 
-    // Save the updated article
-    await article.save();
+      // Save the updated article
+      await article.save();
 
-    return { message: 'Article rating submitted', rating: article.rating };
+      return { message: 'Article rating submitted', rating: article.rating };
+    }
   }
 
   /* 
