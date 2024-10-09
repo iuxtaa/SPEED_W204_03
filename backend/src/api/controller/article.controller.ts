@@ -34,7 +34,10 @@ export class ArticleController {
 
   // submits articles and sends it to the database
   @Post()
-  async create(@Body() submitArticleDTO: SubmitArticleDTO, @Body('email') email: string) {
+  async create(
+    @Body() submitArticleDTO: SubmitArticleDTO,
+    @Body('email') email: string,
+  ) {
     const userEmail = email;
     return this.ArticleService.create(submitArticleDTO, userEmail);
   }
@@ -78,6 +81,15 @@ export class ArticleController {
       id,
       updateArticleDetailsDto,
     );
+  }
+
+  // For submitter and researcher to submit a rating for an article
+  @Patch(':id/rating')
+  async updateArticleRating(
+    @Param('id') id: string,
+    @Body('rating') rating: number,
+  ) {
+    return this.ArticleService.submitRating(id, rating);
   }
 
   /*

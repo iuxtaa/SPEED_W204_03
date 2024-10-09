@@ -1,5 +1,6 @@
 import { IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 import { ArticleStatus } from '../enums/articles.status';
+import { ArticleEvidence } from '../enums/article.evidence';
 
 export class SearchAnalysedArticleDTO {
   @IsOptional()
@@ -34,9 +35,26 @@ export class SearchAnalysedArticleDTO {
   @IsString()
   doi: string;
 
+  @IsOptional()
   @IsString()
   seMethod: string;
 
-  @IsEnum(ArticleStatus)
-  status: ArticleStatus; // might change
+  @IsOptional()
+  @IsEnum(ArticleEvidence)
+  evidence: ArticleEvidence;
+
+  @IsOptional()
+  @IsString()
+  claim: string;
+
+  @IsOptional()
+  @IsString()
+  relevance: 'rating' | 'relevance';
+
+  @IsOptional()
+  @IsString()
+  evidenceOrder: 'support' | 'against' | 'neutral';
+
+  // @IsEnum(ArticleStatus)
+  // status: ArticleStatus; // might change
 }

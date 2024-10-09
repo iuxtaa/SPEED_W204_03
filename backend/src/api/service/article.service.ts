@@ -23,7 +23,10 @@ export class ArticleService {
     SUBMIT FUNCTIONS
     for Submitter
   */
-  async create(submitArticleDTO: SubmitArticleDTO, userEmail: string): Promise<Article> {
+  async create(
+    submitArticleDTO: SubmitArticleDTO,
+    userEmail: string,
+  ): Promise<Article> {
     const newArticle = new this.articleModel({
       articleStatus: ArticleStatus.Unmoderated, // Set default status to unmoderated
       email: userEmail,
@@ -138,6 +141,29 @@ export class ArticleService {
     return article.save();
   }
 
+  /* Submit Rating 
+  for Submitter and Researcher
+  */
+  async submitRating(id: string, rating: number) {
+    const article = await this.articleModel.findById(id);
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    // Update the rating count and sum
+    article.ratingCount += 1;
+    article.ratingSum += rating;
+
+    // Calculate the new average rating
+    article.rating = article.ratingSum / article.ratingCount;
+
+    // Save the updated article
+    await article.save();
+
+    return { message: 'Article rating submitted', rating: article.rating };
+  }
+
   /* 
     Update Function
     for Analyser
@@ -148,12 +174,12 @@ export class ArticleService {
   ): Promise<Article> {
     const article = await this.articleModel.findById(id);
 
-    article.articleStatus = ArticleStatus.Analysed;
-    article.save();
-
     if (!article) {
       throw new NotFoundException('Article not found');
     }
+
+    article.articleStatus = ArticleStatus.Analysed;
+    article.save();
 
     return this.articleModel
       .findByIdAndUpdate(id, AnalyseArticleDTO, { new: true })
