@@ -23,10 +23,10 @@ export class ArticleService {
     SUBMIT FUNCTIONS
     for Submitter
   */
-  async create(submitArticleDTO: SubmitArticleDTO): Promise<Article> {
+  async create(submitArticleDTO: SubmitArticleDTO, userEmail: string): Promise<Article> {
     const newArticle = new this.articleModel({
       articleStatus: ArticleStatus.Unmoderated, // Set default status to unmoderated
-      email: submitArticleDTO.email,
+      email: userEmail,
       ...submitArticleDTO,
     });
 

@@ -73,7 +73,7 @@ describe('UserController', () => {
         email: 'john@example.com',
         password: 'StrongPassword123!',
         passwordConfirmation: 'StrongPassword123!',
-        status: UserStatus.General,
+        // status: UserStatus.General,
       };
 
       const result = { username: 'johndoe' };
@@ -94,7 +94,7 @@ describe('UserController', () => {
         email: 'john@example.com',
         password: 'StrongPassword123!',
         passwordConfirmation: 'StrongPassword123!',
-        status: UserStatus.General,
+        // status: UserStatus.General,
       };
 
       mockUserService.signup.mockRejectedValue({ status: HttpStatus.CONFLICT });
@@ -141,7 +141,7 @@ describe('UserController', () => {
         email: 'john@example.com',
         password: 'StrongPassword123!',
         passwordConfirmation: 'StrongPassword123!',
-        status: UserStatus.General,
+        // status: UserStatus.General,
       };
 
       mockUserService.createNewUser.mockResolvedValue(null);
@@ -160,7 +160,7 @@ describe('UserController', () => {
         email: 'john@example.com',
         password: 'StrongPassword123!',
         passwordConfirmation: 'StrongPassword123!',
-        status: UserStatus.General,
+        // status: UserStatus.General,
       };
 
       mockUserService.createNewUser.mockRejectedValue(new Error('Error'));
