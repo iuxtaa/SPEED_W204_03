@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import styles from "../styles/adminForm.module.css";
+import { useRouter } from "next/router";
+
 
 type Article = {
   _id: string;
@@ -14,10 +16,13 @@ type Article = {
 
 const AdminPage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editFormData, setEditFormData] = useState<Article | null>(null);
   const [error, setError] = useState<string>("");
+  const router = useRouter();
 
   useEffect(() => {
-    // Fetch analyzed articles from the backend
+
     const fetchArticles = async () => {
       try {
         const response = await fetch(
@@ -38,11 +43,52 @@ const AdminPage: React.FC = () => {
     fetchArticles();
   }, []);
 
-  const handleEdit = async (id: string) => {
-    // Implementation for redirecting to the edit form
-    console.log("Redirect to Edit Article", id);
-    // You could use useRouter from Next.js to navigate to the edit page
-    // router.push(`/edit-article/${id}`);
+  const handleEditClick = (article: Article) => {
+    setEditingId(article._id);
+    setEditFormData(article);
+  };
+
+  const handleCancelClick = () => {
+    setEditingId(null);
+    setEditFormData(null);
+  };
+
+  const handleSaveClick = async () => {
+    if (!editFormData) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:8082/api/articles/${editingId}/details`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editFormData),
+        }
+      );
+      if (response.ok) {
+        const updatedArticles = articles.map((article) =>
+          article._id === editingId ? ({ ...editFormData } as Article) : article
+        );
+        setArticles(updatedArticles);
+        setEditingId(null);
+        alert("Article updated successfully!");
+      } else {
+        setError("Failed to update article");
+      }
+    } catch (error) {
+      console.error("Error updating article:", error);
+      setError("Failed to update article");
+    }
+  };
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (editFormData) {
+      setEditFormData({ ...editFormData, [name]: value });
+    }
+
   };
 
   const handleDelete = async (id: string) => {
@@ -71,7 +117,8 @@ const AdminPage: React.FC = () => {
       <Head>
         <title>Admin&apos;s Article Dashboard</title>
       </Head>
-      <h1 className={styles.heading}>Admin Dashboard</h1>
+      <h1 className={styles.heading}>Admin&apos;s Article Dashboard</h1>
+
       {error && <p className={styles.error}>{error}</p>}
       {articles.length === 0 ? (
         <p className={styles.noArticles}>No analyzed articles available.</p>
@@ -91,26 +138,79 @@ const AdminPage: React.FC = () => {
           <tbody>
             {articles.map((article) => (
               <tr key={article._id}>
-                <td>{article.title}</td>
-                <td>{article.author}</td>
-                <td>{article.journalName}</td>
-                <td>{article.publicationYear}</td>
-                <td>{article.doi}</td>
-                <td>{article.email}</td>
-                <td className={styles.actions}>
-                  <button
-                    className={styles.editButton}
-                    onClick={() => handleEdit(article._id)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className={styles.rejectButton} // Consider renaming this class to deleteButton for clarity
-                    onClick={() => handleDelete(article._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+                {editingId === article._id ? (
+                  <React.Fragment>
+                    <td>
+                      <input
+                        type="text"
+                        name="title"
+                        value={editFormData?.title}
+                        onChange={handleFormChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="author"
+                        value={editFormData?.author}
+                        onChange={handleFormChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="journalName"
+                        value={editFormData?.journalName}
+                        onChange={handleFormChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="publicationYear"
+                        value={editFormData?.publicationYear}
+                        onChange={handleFormChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="doi"
+                        value={editFormData?.doi}
+                        onChange={handleFormChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="email"
+                        name="email"
+                        value={editFormData?.email}
+                        onChange={handleFormChange}
+                      />
+                    </td>
+                    <td>
+                      <button onClick={handleSaveClick}>Save</button>
+                      <button onClick={handleCancelClick}>Cancel</button>
+                    </td>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <td>{article.title}</td>
+                    <td>{article.author}</td>
+                    <td>{article.journalName}</td>
+                    <td>{article.publicationYear}</td>
+                    <td>{article.doi}</td>
+                    <td>{article.email}</td>
+                    <td>
+                      <button onClick={() => handleEditClick(article)}>
+                        Edit
+                      </button>
+                      <button onClick={() => handleDelete(article._id)}>
+                        Delete
+                      </button>
+                    </td>
+                  </React.Fragment>
+                )}
               </tr>
             ))}
           </tbody>
