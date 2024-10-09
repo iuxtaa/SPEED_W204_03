@@ -44,7 +44,10 @@ const IndexPage = () => {
       const data = await response.json();
       console.log("Login successful:", data);
       // Redirect to the homepage
-      router.push("/homepage");
+
+
+      router.push('/home');
+
     } catch (err) {
       console.error("Login failed:", err);
       setError("Failed to login. Please check your username and password.");

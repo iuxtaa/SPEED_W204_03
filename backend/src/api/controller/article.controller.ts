@@ -16,6 +16,7 @@ import { ArticleService } from '../service/article.service';
 import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { UpdateArticleDTO } from '../dto/update-article.dto';
+import { AnalyseArticleDTO } from '../dto/analyse-article.dto';
 
 @Controller('api/articles')
 export class ArticleController {
@@ -31,38 +32,52 @@ export class ArticleController {
     for Articles
   */
 
+  // submits articles and sends it to the database
   @Post()
-  async create(@Body() submitArticleDTO: SubmitArticleDTO) {
-    return this.ArticleService.create(submitArticleDTO);
+  async create(@Body() submitArticleDTO: SubmitArticleDTO, @Body('email') email: string) {
+    const userEmail = email;
+    return this.ArticleService.create(submitArticleDTO, userEmail);
   }
 
+  // gets all articles from the database
   @Get()
   async findAll() {
     return this.ArticleService.findAll();
   }
 
+  // find article by its ID
   @Get('/search-article-by-id/:id')
   async findOne(@Param('id') id: string) {
     return this.ArticleService.findOne(id); // Use _id from request parameter
   }
 
+  // Updates article, needs ID of the article and a body
+  // can be used by ANALYST to add claim and evidence
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDTO) {
-    return this.ArticleService.update(id, updateArticleDto);  // Use _id for update
+  async update(
+    @Param('id') id: string,
+    @Body() updateArticleDto: UpdateArticleDTO,
+  ) {
+    return this.ArticleService.update(id, updateArticleDto); // Use _id for update
   }
 
-  @Delete('/search-article-by-id/:id')
+  // Deletes an article by ID
+  @Delete('/delete-article-by-id/:id')
   async remove(@Param('id') id: string) {
     return this.ArticleService.remove(id); // Use _id for deletion
   }
 
-  // For admin to update article details
+  // For admin to update article details, needs ID of the article and a body
+  // can be used by ADMIN to edit ANY details
   @Put(':id/details')
   async updateArticleDetails(
     @Param('id') id: string,
-    @Body() updateArticleDetailsDto: UpdateArticleDTO
+    @Body() updateArticleDetailsDto: UpdateArticleDTO,
   ) {
-    return this.ArticleService.updateArticleDetails(id, updateArticleDetailsDto);
+    return this.ArticleService.updateArticleDetails(
+      id,
+      updateArticleDetailsDto,
+    );
   }
 
   /*
@@ -104,7 +119,6 @@ export class ArticleController {
     }
   }
 
-
   // Get moderated articles
   @Get('/moderated-articles')
   async findModeratedArticles() {
@@ -122,7 +136,7 @@ export class ArticleController {
     }
   }
 
-  // Get rejected articles
+  // Gets all rejected articles
   @Get('/rejected-articles')
   async findRejectedArticles() {
     try {
@@ -132,6 +146,23 @@ export class ArticleController {
         {
           status: HttpStatus.NOT_FOUND,
           error: 'No Articles Found',
+        },
+        HttpStatus.NOT_FOUND,
+        { cause: error },
+      );
+    }
+  }
+
+  // Get all rejected articles submitted by a user
+  @Get('/rejected-articles-by-user')
+  async findRejectedArticlesByUser(@Body('email') email: string) {
+    try {
+      return this.ArticleService.findRejectedArticlesByUser(email);
+    } catch {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'No rejected articles found for this given user',
         },
         HttpStatus.NOT_FOUND,
         { cause: error },
@@ -162,15 +193,33 @@ export class ArticleController {
     for Moderators
   */
 
-  // Moderator can REJECT the article 
+  // Moderator can REJECT the article
   @Patch('/:id/reject')
-    async rejectArticle(@Param('id') id: string) {
-        return this.ArticleService.rejectArticle(id);
+  async rejectArticle(
+    @Param('id') id: string,
+    @Body('feedback') feedback: string,
+  ) {
+    return this.ArticleService.rejectArticle(id, feedback);
   }
 
   // Moderator can ACCEPT the article (which brings it to the analyst), the article becomes 'Moderated'
   @Patch('/:id/accept')
   async acceptArticle(@Param('id') id: string) {
     return this.ArticleService.acceptArticle(id);
+  }
+
+  /*
+    PATCH FUNCTION
+    for Articles
+    for Analysers
+  */
+
+  // Analyser can ENTER evidence claim, result, and methodology
+  @Patch('/analyse/:id')
+  async analyseArticle(
+    @Param('id') id: string,
+    @Body() AnalyseArticleDTO: AnalyseArticleDTO,
+  ) {
+    return this.ArticleService.analyseArticle(id, AnalyseArticleDTO);
   }
 }
