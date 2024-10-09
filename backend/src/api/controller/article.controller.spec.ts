@@ -52,6 +52,7 @@ describe('ArticleController', () => {
     });
   });
 
+  // Creates an article submission and submits it
   describe('create', () => {
     it('should call service to create an article', async () => {
       const dto: SubmitArticleDTO = {
@@ -60,10 +61,12 @@ describe('ArticleController', () => {
         journalName: 'Test Journal',
         publicationYear: 2023,
         doi: '123',
-        email: '123@gmail.com'
+        // email: '123@gmail.com'
       };
 
-      await controller.create(dto);
+      const email = '123@gmail.com';
+
+      await controller.create(dto, email);
       expect(service.create).toHaveBeenCalledWith(dto);
     });
   });
@@ -77,6 +80,7 @@ describe('ArticleController', () => {
     });
   });
 
+  // Finds article by its ID
   describe('findOne', () => {
     it('should call service to find an article by ID', async () => {
       const articleId = 'some-article-id';
