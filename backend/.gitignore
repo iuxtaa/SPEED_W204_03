@@ -2,8 +2,6 @@
 /dist
 /node_modules
 /build
-#Ignore uploaded files from POSTMAN
-/uploads/
 
 # Logs
 logs
