@@ -90,15 +90,6 @@ export class ArticleController {
     @Body('rating') rating: number,
   ) {
     return this.ArticleService.submitRating(id, rating);
-    // try {
-    //   return this.ArticleService.submitRating(id, rating);
-    // } catch (error) {
-    //   throw new HttpException(
-    //     { status: HttpStatus.BAD_REQUEST, error: error.message },
-    //     HttpStatus.BAD_REQUEST,
-    //     { cause: error },
-    //   );
-    // }
   }
 
   /*
