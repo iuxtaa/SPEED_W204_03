@@ -64,8 +64,8 @@ export class EmailService {
     const mailOptions = {
       from: `"SPEED" <${this.configService.get<string>('SENDER_EMAIL')}>`,
       to: recipientEmail,
-      subject: `Article Accepted: ${articleTitle}`,
-      text: `Dear author,\n\nYour article "${articleTitle}" has been accepted.\n\nBest regards,\nSPEED Team`,
+      subject: `Article Moderated: ${articleTitle}`,
+      text: `Dear author,\n\nYour article "${articleTitle}" has been moderated and will move onto analysis.\n\nBest regards,\nSPEED Team`,
     };
 
     try {
@@ -81,7 +81,7 @@ export class EmailService {
       from: `"SPEED" <${this.configService.get<string>('SENDER_EMAIL')}>`,
       to: `${this.configService.get<string>('ANALYST_EMAIL')}`,
       subject: `New Article submitted for Analysis, ID: ${articleID} ${articleTitle}`,
-      text: `Dear analyst,\n\nNew article "${articleTitle}" has been submitted for analysis.\n\nBest regards,\nSPEED Team`,
+      text: `Dear analyst,\n\nNew article "${articleTitle}" with ID "${articleID}" has been submitted for analysis.\n\nBest regards,\nSPEED Team`,
     };
 
     try {
