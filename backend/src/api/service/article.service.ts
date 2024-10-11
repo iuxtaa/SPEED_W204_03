@@ -6,14 +6,14 @@ import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { ArticleStatus } from '../enums/articles.status';
 import { UpdateArticleDTO } from '../dto/update-article.dto';
-import { NotificationService } from './notification.service'; // Import the NotificationService
 import { AnalyseArticleDTO } from '../dto/analyse-article.dto';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class ArticleService {
   constructor(
     @InjectModel(Article.name) private readonly articleModel: Model<Article>,
-    private readonly notificationService: NotificationService, // Inject NotificationService
+    private readonly emailService: EmailService, // Inject NotificationService
   ) {}
   test(): string {
     return 'article route testing';
@@ -66,9 +66,13 @@ export class ArticleService {
   // Moderator can reject the article, setting the article status to 'Rejected'
   async rejectArticle(id: string, feedback: string) {
     const article = await this.articleModel.findById(id); // Fetch the article by ID
+    const submitterEmail = article.email;
 
     if (!article) {
       throw new NotFoundException('Article not found');
+    }
+    if (!submitterEmail) {
+      throw new NotFoundException('Article submitter email not found');
     }
 
     article.articleStatus = ArticleStatus.Rejected; // Update article status to "rejected"
@@ -76,9 +80,10 @@ export class ArticleService {
     await article.save();
 
     // Notify submitter of rejection
-    await this.notificationService.notifySubmitter(
-      article.email,
-      'Your article was rejected: ',
+    await this.emailService.sendRejectionEmail(
+      submitterEmail,
+      article.title,
+      article.feedback,
     );
 
     return { message: 'Article rejected and submitter notified' };
@@ -98,13 +103,13 @@ export class ArticleService {
     await article.save();
 
     // Notify the submitter of the acceptance
-    await this.notificationService.notifySubmitter(
+    await this.emailService.sendAcceptanceEmail(
       article.email,
-      'Your article has been accepted.',
+      article.title,
     );
 
     // Notify the analyst that the article is ready for analysis
-    await this.notificationService.notifyAnalyst(article._id.toString());
+    await this.emailService.notifyAnalyst(article._id.toString(), article.title);
 
     return { message: 'Article accepted and submitter & analyst notified' };
   }
