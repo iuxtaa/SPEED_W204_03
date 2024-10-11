@@ -30,7 +30,7 @@ export class SubmitArticleDTO {
   doi: string;
 
   // @IsString()
-  //  email: string;
+  // email: string;
 
   // @IsEnum(ArticleStatus)
   // articleStatus: ArticleStatus;

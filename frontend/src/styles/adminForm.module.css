@@ -1,97 +1,69 @@
-/* Admin.module.css */
-.container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #ffffff; /* White background */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Admin Page Styles */
+.adminContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.heading {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #2c3e50; /* Dark blue-gray */
-  font-size: 32px;
-  font-weight: bold;
+.adminHeader {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.error {
-  color: #e74c3c; /* Red color for errors */
-  text-align: center;
-  margin-bottom: 20px;
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.noArticles {
-  text-align: center;
-  font-size: 18px;
-  color: #7f8c8d; /* Gray color */
+.adminTableThead {
+    background-color: #007BFF;
+    color: #ffffff;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+.adminTableTh,
+.adminTableTd {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
-.table th,
-.table td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
+.adminTableTbodyTrOdd {
+    background-color: #f2f2f2;
 }
 
-.table th {
-  background-color: #f2f2f2;
-  color: #2c3e50;
+.adminTableTbodyTrHover:hover {
+    background-color: #f1f1f1;
 }
 
-.table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.statusButton {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
 }
 
-.actions {
-  display: flex;
-  gap: 10px;
+.statusActive {
+    background-color: #28a745;
 }
 
-.editButton,
-.rejectButton {
-  padding: 8px 12px;
-  margin-right: 5px;
-  font-size: 14px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.statusInactive {
+    background-color: #dc3545;
 }
 
-.editButton {
-  background-color: #3498db; /* Blue */
-  color: #fff;
-}
-
-.rejectButton {
-  background-color: #e74c3c; /* Red */
-  color: #fff;
-}
-
-.editButton:hover {
-  background-color: #2980b9; /* Darker blue */
-}
-.actions {
-  display: flex;
-  align-items: center;
-}
-/* Styles for responsiveness */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
+    .adminContainer {
+        padding: 10px;
+    }
 
-  .th, .td {
-    padding: 6px;
-  }
+    .adminTableTh,
+    .adminTableTd {
+        padding: 8px;
+    }
 }
-
-
-
