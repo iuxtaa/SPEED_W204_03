@@ -1,10 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Article, ArticleDocument } from '../schemas/article.schema';
+import { Article } from '../schemas/article.schema';
 import { SubmitArticleDTO } from '../dto/submit-article.dto';
 import { SearchAnalysedArticleDTO } from '../dto/search-article.dto';
 import { ArticleStatus } from '../enums/articles.status';
+import { ArticleRating } from '../enums/article.evidence';
 import { UpdateArticleDTO } from '../dto/update-article.dto';
 import { AnalyseArticleDTO } from '../dto/analyse-article.dto';
 import { EmailService } from './email.service';
@@ -23,7 +28,10 @@ export class ArticleService {
     SUBMIT FUNCTIONS
     for Submitter
   */
-  async create(submitArticleDTO: SubmitArticleDTO, userEmail: string): Promise<Article> {
+  async create(
+    submitArticleDTO: SubmitArticleDTO,
+    userEmail: string,
+  ): Promise<Article> {
     const newArticle = new this.articleModel({
       articleStatus: ArticleStatus.Unmoderated, // Set default status to unmoderated
       email: userEmail,
@@ -143,6 +151,33 @@ export class ArticleService {
     return article.save();
   }
 
+  /* Submit Rating 
+  for Submitter and Researcher
+  */
+  async submitRating(id: string, rating: number) {
+    const article = await this.articleModel.findById(id);
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    if (rating < ArticleRating.min || rating > ArticleRating.max) {
+      throw new BadRequestException('Please enter a rating between 0 to 5');
+    } else {
+      // Update the rating count and sum
+      article.ratingCount += 1;
+      article.ratingSum += rating;
+
+      // Calculate the new average rating
+      article.rating = article.ratingSum / article.ratingCount;
+
+      // Save the updated article
+      await article.save();
+
+      return { message: 'Article rating submitted', rating: article.rating };
+    }
+  }
+
   /* 
     Update Function
     for Analyser
@@ -153,12 +188,12 @@ export class ArticleService {
   ): Promise<Article> {
     const article = await this.articleModel.findById(id);
 
-    article.articleStatus = ArticleStatus.Analysed;
-    article.save();
-
     if (!article) {
       throw new NotFoundException('Article not found');
     }
+
+    article.articleStatus = ArticleStatus.Analysed;
+    await article.save();
 
     return this.articleModel
       .findByIdAndUpdate(id, AnalyseArticleDTO, { new: true })
@@ -206,18 +241,24 @@ export class ArticleService {
 
   // Finds articles based on search query
   async findArticle(
-    SearchArticleDTO: SearchAnalysedArticleDTO,
+    SearchAnalysedArticleDTO: SearchAnalysedArticleDTO,
   ): Promise<Article[]> {
-    const query = this.buildSearchQuery(SearchArticleDTO);
-    return await this.articleModel.find(query).exec();
+    const query = this.buildSearchQuery(SearchAnalysedArticleDTO);
+    const sortingOption = this.buildSortOption(SearchAnalysedArticleDTO);
+
+    return await this.articleModel.find(query).sort(sortingOption).exec();
   }
 
   // Creates a query object by iterating over each key in  SearchArticleDTO
-  private buildSearchQuery(SearchArticleDTO: SearchAnalysedArticleDTO): any {
-    const query = {};
+  private buildSearchQuery(
+    SearchAnalysedArticleDTO: SearchAnalysedArticleDTO,
+  ): any {
+    const query = {
+      articleStatus: ArticleStatus.Analysed,
+    };
 
-    Object.entries(SearchArticleDTO).forEach(([key, value]) => {
-      if (value) {
+    Object.entries(SearchAnalysedArticleDTO).forEach(([key, value]) => {
+      if (value && key !== 'sortBy') {
         if (typeof value === 'string') {
           // Checks if the input value is a string
           query[key] = { $regex: value, $options: 'i' }; // Checks for partial matches in strings, regardless of casing
@@ -228,5 +269,21 @@ export class ArticleService {
     });
 
     return query;
+  }
+
+  // Used to retrieve articles based on the sort object that is built
+  private buildSortOption(
+    SearchAnalysedArticleDTO: SearchAnalysedArticleDTO,
+  ): any {
+    const { sortBy } = SearchAnalysedArticleDTO;
+    const sort = {};
+
+    if (sortBy === 'high rating') {
+      sort['rating'] = -1;
+    } else if (sortBy === 'low rating') {
+      sort['rating'] = 1;
+    }
+
+    return sort;
   }
 }
