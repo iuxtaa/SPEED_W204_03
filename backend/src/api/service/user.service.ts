@@ -45,9 +45,8 @@ export class UserService {
     return {
       message: 'User log in successful',
       user: {
-        username: user.username,
-        email: user.email,
-        password: user.password,
+        firstname: user.firstname,
+        lastname: user.lastname,
       },
     };
   }
