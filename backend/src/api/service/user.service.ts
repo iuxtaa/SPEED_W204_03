@@ -76,6 +76,10 @@ export class UserService {
       .exec();
   }
 
+  async deleteUser(id: string): Promise<User> {
+    return this.userModel.findByIdAndDelete(id).exec(); // Use _id
+  }
+
   private checkPasswordConfirmation(
     password: string,
     passwordConfirmation: string,

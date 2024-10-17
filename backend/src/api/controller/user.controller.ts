@@ -144,4 +144,19 @@ export class UserController {
       }
     }
   }
+
+  // Delete a user by id
+  @Delete('/delete-user-by-id/:id')
+  async deleteUser(@Param('id') id: string) {
+    try {
+      const user = await this.UserService.deleteUser(id);
+      return { message: 'User deleted successfully', user };
+    } catch {
+      throw new HttpException(
+        { status: HttpStatus.BAD_REQUEST, error: 'No users found' },
+        HttpStatus.BAD_REQUEST,
+        { cause: error },
+      );
+    }
+  }
 }
