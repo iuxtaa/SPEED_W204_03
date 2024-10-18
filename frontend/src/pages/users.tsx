@@ -174,18 +174,22 @@ const handleAddNewUser = async () => {
 
   const handleDelete = async (id: string) => {
     try {
-      // Ensure the URL is fully qualified if necessary, or correctly specified
-      const response = await fetch(`http://localhost:8082/api/users/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://localhost:8082/api/users/delete-user-by-id/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
       if (!response.ok) {
-        // Log the error response from the server to understand the issue better
-        const errorResponse = await response.text(); // Getting the full error message
-        console.error("Delete Error Response:", errorResponse);
-        throw new Error("Failed to delete user: " + errorResponse);
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete user");
       }
-      setUsers(users.filter((user) => user._id !== id));
+
+      await fetchUsers(); // Refresh the user list after deletion
+      setError(null); // Clear any errors if deletion was successful
     } catch (error: any) {
+      console.error("Error deleting user:", error);
       setError("Failed to delete user: " + error.message);
     }
   };
