@@ -1,7 +1,8 @@
+// pages/home.tsx
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react'; 
 import Layout from '../components/Layout';
 import styles from '../styles/Home.module.css';
 import NotificationItem from '../components/NotificationItem';
@@ -12,14 +13,22 @@ type Notification = {
 };
 
 const Home: React.FC = () => {
-  const { data: session, status } = useSession(); 
+  const [username, setUsername] = useState<string | null>(null);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const router = useRouter();
 
-  
-  const userName = session?.user?.name || 'User'; 
   useEffect(() => {
-   
+    // Retrieve the username from localStorage
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    } else {
+      // Redirect to login page if not logged in
+      router.push('/');
+    }
+  }, [router]);
+
+  useEffect(() => {
     const fetchNotifications = async () => {
       const data: Notification[] = await new Promise((resolve) =>
         setTimeout(
@@ -37,6 +46,12 @@ const Home: React.FC = () => {
 
     fetchNotifications();
   }, []);
+
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem('username'); // Clear the username from localStorage
+    router.push('/'); // Redirect to login page
+  };
 
   return (
     <Layout>
@@ -56,7 +71,10 @@ const Home: React.FC = () => {
                 <Link href="/Moderator">Moderator Dashboard</Link>
               </li>
               <li>
-              <Link href="/Submission">Submit New</Link>
+                <Link href="/Submission">Submit New</Link>
+              </li>
+              <li>
+                <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
               </li>
             </ul>
           </nav>
@@ -66,8 +84,8 @@ const Home: React.FC = () => {
         <main className={styles.mainContent}>
           <section className={styles.introduction}>
             {/* Personalized Welcome Message */}
-            {status === 'authenticated' ? (
-              <h1 className={styles.welcomeMessage}>Welcome back, {userName}!</h1>
+            {username ? (
+              <h1 className={styles.welcomeMessage}>Welcome back, {username}!</h1>
             ) : (
               <h1 className={styles.welcomeMessage}>Welcome to SPEED</h1>
             )}

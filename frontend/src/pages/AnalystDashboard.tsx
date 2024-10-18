@@ -1,5 +1,3 @@
-// src/pages/AnalystDashboard.tsx
-
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from '../styles/AnalystDashboard.module.css';
@@ -67,6 +65,13 @@ const AnalystDashboard: React.FC = () => {
     e.preventDefault();
     if (!selectedArticle) return;
 
+    // Add 'Analysed' status and 'approved' flag before updating the article
+    const updatedFormData = {
+      ...formData,
+      status: 'Analysed', // Mark the status as Analysed
+      approved: true,     // Approve the article
+    };
+
     try {
       const response = await fetch(
         `http://localhost:8082/api/articles/analyse/${selectedArticle._id}`,
@@ -75,7 +80,7 @@ const AnalystDashboard: React.FC = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(updatedFormData),
         }
       );
 
@@ -215,4 +220,3 @@ const AnalystDashboard: React.FC = () => {
 };
 
 export default AnalystDashboard;
-

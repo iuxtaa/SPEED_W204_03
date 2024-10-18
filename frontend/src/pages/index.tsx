@@ -1,3 +1,7 @@
+// pages/index.tsx
+
+// pages/index.tsx
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/LoginForm.module.css'; // Ensure the path is correct
@@ -40,6 +44,10 @@ const IndexPage = () => {
 
       const data = await response.json();
       console.log('Login successful:', data);
+
+      // Store the username in localStorage
+      localStorage.setItem('username', data.validatedUser.username);
+
       // Redirect to the homepage
       router.push('/home');
     } catch (err) {
@@ -64,11 +72,11 @@ const IndexPage = () => {
         <button type="submit" className={styles.loginButton}>Login</button>
       </form>
       <p className={styles.signupLink}>
-  Don&apos;t have an account? 
-  <Link href="/signup">
-    <a style={{ color: 'red' }}>Sign up</a>
-  </Link>
-</p>
+        Don&apos;t have an account?{' '}
+        <Link href="/signup">
+          <a style={{ color: 'red' }}>Sign up</a>
+        </Link>
+      </p>
     </div>
   );
 };

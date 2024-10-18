@@ -10,8 +10,8 @@ type Article = {
   publicationYear: number;
   doi: string;
   email: string;
-  status: string; // Status can be "pending", "accepted", "rejected"
-  feedback?: string; // Optional feedback field for rejected articles
+  status: string; 
+  feedback?: string; 
 };
 
 const ModeratorPage: React.FC = () => {
@@ -146,7 +146,7 @@ const ModeratorPage: React.FC = () => {
         </table>
       )}
 
-      {/* Feedback Form Modal */}
+      {}
       {showFeedbackForm && (
         <div className={styles.feedbackModal}>
           <div className={styles.feedbackContent}>

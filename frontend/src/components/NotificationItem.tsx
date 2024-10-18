@@ -14,3 +14,4 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ message }) => {
 };
 
 export default NotificationItem;
+

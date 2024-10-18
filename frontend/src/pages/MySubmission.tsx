@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/MySubmission.module.css'; // Create a CSS file for styling
+import { useRouter } from 'next/router';
+import styles from '../styles/MySubmission.module.css';
 
 interface Article {
   id: number;
@@ -11,7 +12,9 @@ interface Article {
 
 const MySubmission: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
+  const router = useRouter();
 
   // Fetch submitted articles by the logged-in user
   useEffect(() => {
@@ -27,11 +30,22 @@ const MySubmission: React.FC = () => {
       } catch (error) {
         console.error('Error fetching submitted articles:', error);
         setError('Error fetching your submitted articles.');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchMySubmissions();
   }, []);
+
+  const handleResubmit = (article: Article) => {
+    // Navigate to the submission form with the article ID in the URL
+    router.push(`/submit/${article.id}`);
+  };
+
+  if (loading) {
+    return <p className={styles.loading}>Loading your submissions...</p>;
+  }
 
   return (
     <div className={styles.container}>
@@ -47,6 +61,7 @@ const MySubmission: React.FC = () => {
               <th>Status</th>
               <th>Submission Date</th>
               <th>Feedback</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -54,8 +69,20 @@ const MySubmission: React.FC = () => {
               <tr key={article.id}>
                 <td>{article.title}</td>
                 <td>{article.status}</td>
-                <td>{article.submissionDate}</td>
-                <td>{article.feedback ? article.feedback : 'No feedback provided'}</td>
+                <td>{new Date(article.submissionDate).toLocaleDateString()}</td>
+                <td>{article.feedback || 'No feedback provided'}</td>
+                <td>
+                  {article.status === 'Rejected' ? (
+                    <button
+                      className={styles.resubmitButton}
+                      onClick={() => handleResubmit(article)}
+                    >
+                      Submit Again
+                    </button>
+                  ) : (
+                    <span>-</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -66,3 +93,5 @@ const MySubmission: React.FC = () => {
 };
 
 export default MySubmission;
+
+
