@@ -25,7 +25,7 @@ export class EmailService {
     this.initializeTransporter();
   }
 
-  private initializeTransporter() {
+  private async initializeTransporter() {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -40,8 +40,12 @@ export class EmailService {
   }
 
   async getAccessToken() {
-    const accessToken = await this.oauth2Client.getAccessToken();
-    return accessToken?.token;
+    try{
+      const accessToken = await this.oauth2Client.getAccessToken();
+      return accessToken?.token;
+    } catch(error) {
+      console.error('Access token could not be retrieved');
+    }
   }
 
   async sendRejectionEmail(recipientEmail: string, articleTitle: string, feedback: string) {
