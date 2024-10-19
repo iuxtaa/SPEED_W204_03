@@ -12,6 +12,7 @@ interface Article {
   doi: string;
   evidence?: string;
   claim?: string;
+  rating?: number;
 }
 
 const SearchArticles = () => {
@@ -236,6 +237,7 @@ const SearchArticles = () => {
             <th>Publication Year</th>
             <th>Evidence</th>
             <th>Claim</th>
+            <th>Rating</th> {/* Added Rating column header */}
           </tr>
         </thead>
         <tbody>
@@ -251,12 +253,14 @@ const SearchArticles = () => {
               <td>{article.publicationYear}</td>
               <td>{article.evidence}</td>
               <td>{article.claim}</td>
+              <td>{article.rating ?? "N/A"}</td> {/* Displaying rating */}
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
+
 };
 
 export default SearchArticles;

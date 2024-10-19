@@ -12,6 +12,7 @@ const Submission: React.FC = () => {
     pages: '',
     doi: '',
     email: '',
+    rating: 0,
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -54,6 +55,7 @@ const Submission: React.FC = () => {
       pages: formData.pages || undefined,
       doi: formData.doi,
       email: formData.email,
+      rating: Number(formData.rating),
     };
 
     try {
@@ -71,15 +73,16 @@ const Submission: React.FC = () => {
         setSuccessMessage('Article submitted successfully!');
         // Reset form fields
         setFormData({
-          title: '',
-          author: '',
-          journalName: '',
-          publicationYear: '',
-          volume: '',
-          number: '',
-          pages: '',
-          doi: '',
-          email: '',
+          title: "",
+          author: "",
+          journalName: "",
+          publicationYear: "",
+          volume: "",
+          number: "",
+          pages: "",
+          doi: "",
+          email: "",
+          rating: 0, // Reset the rating as well
         });
       } else {
         const errorData = await response.json();
@@ -95,7 +98,7 @@ const Submission: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Submit Article</h1>
-      {errors.api && <p style={{ color: 'red' }}>{errors.api}</p>}
+      {errors.api && <p style={{ color: "red" }}>{errors.api}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* Title */}
         <div className={styles.formGroup}>
@@ -106,9 +109,9 @@ const Submission: React.FC = () => {
             value={formData.title}
             onChange={handleChange}
           />
-          {errors.title && <span style={{ color: 'red' }}>{errors.title}</span>}
+          {errors.title && <span style={{ color: "red" }}>{errors.title}</span>}
         </div>
-  
+
         {/* Author */}
         <div className={styles.formGroup}>
           <label>Author:</label>
@@ -118,9 +121,11 @@ const Submission: React.FC = () => {
             value={formData.author}
             onChange={handleChange}
           />
-          {errors.author && <span style={{ color: 'red' }}>{errors.author}</span>}
+          {errors.author && (
+            <span style={{ color: "red" }}>{errors.author}</span>
+          )}
         </div>
-  
+
         {/* Journal Name */}
         <div className={styles.formGroup}>
           <label>Journal Name:</label>
@@ -131,10 +136,10 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
           {errors.journalName && (
-            <span style={{ color: 'red' }}>{errors.journalName}</span>
+            <span style={{ color: "red" }}>{errors.journalName}</span>
           )}
         </div>
-  
+
         {/* Publication Year */}
         <div className={styles.formGroup}>
           <label>Publication Year:</label>
@@ -145,10 +150,10 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
           {errors.publicationYear && (
-            <span style={{ color: 'red' }}>{errors.publicationYear}</span>
+            <span style={{ color: "red" }}>{errors.publicationYear}</span>
           )}
         </div>
-  
+
         {/* Volume (Optional) */}
         <div className={styles.formGroup}>
           <label>Volume (optional):</label>
@@ -159,7 +164,7 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-  
+
         {/* Number (Optional) */}
         <div className={styles.formGroup}>
           <label>Number (optional):</label>
@@ -170,7 +175,7 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-  
+
         {/* Pages (Optional) */}
         <div className={styles.formGroup}>
           <label>Pages (optional):</label>
@@ -181,7 +186,7 @@ const Submission: React.FC = () => {
             onChange={handleChange}
           />
         </div>
-  
+
         {/* DOI */}
         <div className={styles.formGroup}>
           <label>DOI:</label>
@@ -191,9 +196,9 @@ const Submission: React.FC = () => {
             value={formData.doi}
             onChange={handleChange}
           />
-          {errors.doi && <span style={{ color: 'red' }}>{errors.doi}</span>}
+          {errors.doi && <span style={{ color: "red" }}>{errors.doi}</span>}
         </div>
-  
+
         {/* Email */}
         <div className={styles.formGroup}>
           <label>Email:</label>
@@ -203,16 +208,31 @@ const Submission: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
           />
-          {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+          {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
         </div>
-  
+        {/* Rating */}
+        <div className={styles.formGroup}>
+          <label>Rating (1-5):</label>
+          <input
+            type="number"
+            name="rating"
+            min="1"
+            max="5"
+            value={formData.rating}
+            onChange={handleChange}
+          />
+          {errors.rating && (
+            <span style={{ color: "red" }}>{errors.rating}</span>
+          )}
+        </div>
+
         {/* Success Message Display */}
         {successMessage && (
           <div className={styles.successMessage}>
             <p>{successMessage}</p>
           </div>
         )}
-  
+
         {/* Submit Button */}
         <button type="submit" className={styles.submitButton}>
           Submit Article
