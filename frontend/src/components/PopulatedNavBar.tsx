@@ -19,19 +19,14 @@ const PopulatedNavBar = () => {
         <NavItem dropdown route="/articles">
           Articles <IoMdArrowDropdown />
           <NavDropdown>
-            <NavItem route="/articles">View Articles</NavItem>
+            <NavItem route="/SearchArticles">View Articles</NavItem>
             <NavItem route="/submission">Submit New</NavItem>
+            <NavItem route="/Bibtex">Submit Article as Bibtex</NavItem>
+            <NavItem route="/Moderator">Moderator Dashboard</NavItem>
+            <NavItem route="/rejectedarticles">Rejected articles Dashboard</NavItem>
             <NavItem route="/AnalystDashboard">Analyst DashBoard</NavItem>
-            <NavItem route="/SearchArticles">Search Analysed Articles</NavItem>
             <NavItem route="/admin">Admin Edit Article</NavItem>
             <NavItem route="/users">Admin Edit Users</NavItem>
-            <NavItem route="/Moderator">Moderator Dashboard</NavItem>
-            <NavItem route="/Bibtex">
-              Submit Article as Bibtex
-            </NavItem>
-            <NavItem route="/rejectedarticles">
-              Rejected articles Dashboard
-            </NavItem>
           </NavDropdown>
         </NavItem>
         {onAdminPage && (
