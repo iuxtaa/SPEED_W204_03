@@ -25,13 +25,28 @@ const Home: React.FC = () => {
                 <Link href="/home">Home</Link>
               </li>
               <li>
-                <Link href="/AnalystClaim">Analyst Claim</Link>
+                <Link href="/AnalystDashboard">Analyst Claim</Link>
               </li>
               <li>
                 <Link href="/Moderator">Moderator Dashboard</Link>
               </li>
               <li>
-                <Link href="/Submission">Submit New</Link>
+                <Link href="/submission">Submit New</Link>
+              </li>
+              <li>
+                <Link href="/admin">Admin Article Edit</Link>
+              </li>
+              <li>
+                <Link href="/users">Admin User Edit</Link>
+              </li>
+              <li>
+                <Link href="/Bibtex">Submit Article as Bibtex</Link>
+              </li>
+              <li>
+                <Link href="/rejectedarticle">Rejected Articles</Link>
+              </li>
+              <li>
+                <Link href="/SearchArticles">Search Analysed Articles</Link>
               </li>
             </ul>
           </nav>
