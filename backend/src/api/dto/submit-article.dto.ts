@@ -26,8 +26,9 @@ export class SubmitArticleDTO {
   @IsString()
   pages?: string;
 
+  @IsOptional()
   @IsString()
-  doi: string;
+  doi?: string;
 
   // @IsString()
   //  email: string;

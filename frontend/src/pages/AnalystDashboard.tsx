@@ -1,8 +1,23 @@
-// src/pages/AnalystDashboard.tsx
-
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from '../styles/AnalystDashboard.module.css';
+
+const ArticleStatus = {
+  strongSupport: 'Strongly supports',
+  moderateSupport: 'Moderately supports',
+  weakSupport: 'Weakly supports',
+  strongAgainst: 'Strongly against',
+  mediumAginst: 'Moderately against ',
+  weakAgainst: 'Weakly against',
+};
+
+// type ArticleStatusType = keyof typeof ArticleStatus; // This creates a type that includes all keys of UserStatus as string literals
+
+// // Convert enum to array for rendering in select dropdown
+// const articleStatusOptions = Object.keys(ArticleStatus).map((key) => ({
+//   label: key,
+//   value: ArticleStatus[key as ArticleStatusType].toString(), // Store the numeric value as a string for the select input
+// }));
 
 type Article = {
   _id: string;
@@ -10,18 +25,18 @@ type Article = {
   authors: string;
   journalName: string;
   publicationYear: number;
-  evidenceClaim?: string;
-  evidenceResult?: string;
-  methodology?: string;
+  claim?: string;
+  evidence?: string;
+  seMethod?: string;
 };
 
 const AnalystDashboard: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [formData, setFormData] = useState({
-    evidenceClaim: '',
-    evidenceResult: '',
-    methodology: '',
+    claim: '',
+    evidence: '',
+    seMethod: '',
   });
   const [error, setError] = useState<string>('');
 
@@ -49,9 +64,9 @@ const AnalystDashboard: React.FC = () => {
   const handleSelectArticle = (article: Article) => {
     setSelectedArticle(article);
     setFormData({
-      evidenceClaim: article.evidenceClaim || '',
-      evidenceResult: article.evidenceResult || '',
-      methodology: article.methodology || '',
+      claim: article.claim || '',
+      evidence: article.evidence || '',
+      seMethod: article.seMethod || '',
     });
   };
 
@@ -67,6 +82,16 @@ const AnalystDashboard: React.FC = () => {
     e.preventDefault();
     if (!selectedArticle) return;
 
+    // Add 'Analysed' status and 'approved' flag before updating the article
+    const updatedFormData = {
+      ...formData,
+      status: 'Analysed', // Mark the status as Analysed
+      approved: true,     // Approve the article
+    };
+
+    // Log the data being sent to the backend for debugging
+    console.log('Updated Form Data:', updatedFormData);
+
     try {
       const response = await fetch(
         `http://localhost:8082/api/articles/analyse/${selectedArticle._id}`,
@@ -75,20 +100,20 @@ const AnalystDashboard: React.FC = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(updatedFormData),
         }
       );
 
       if (response.ok) {
         const updatedArticle = await response.json();
-        // Update the list of articles with the newly updated article
+       
         setArticles((prevArticles) =>
           prevArticles.map((article) =>
             article._id === updatedArticle._id ? updatedArticle : article
           )
         );
         alert('Article updated successfully!');
-        setError(''); // Clear any previous errors
+        setError(''); 
       } else {
         const errorText = await response.text();
         console.error('Failed to update article:', errorText);
@@ -108,9 +133,9 @@ const AnalystDashboard: React.FC = () => {
       <h1 className={styles.heading}>Analyst Dashboard</h1>
       {error && <p className={styles.error}>{error}</p>}
 
-      {/* Main layout container */}
+      {}
       <div className={styles.mainContent}>
-        {/* Sidebar for the list of moderated articles */}
+        {}
         <div className={styles.sidebar}>
           <h2 className={styles.subHeading}>Moderated Articles</h2>
           {articles.length === 0 ? (
@@ -164,9 +189,9 @@ const AnalystDashboard: React.FC = () => {
               <div className={styles.formGroup}>
                 <label htmlFor="evidenceClaim">Evidence Claim</label>
                 <textarea
-                  id="evidenceClaim"
-                  name="evidenceClaim"
-                  value={formData.evidenceClaim}
+                  id="claim"
+                  name="claim"
+                  value={formData.claim}
                   onChange={handleChange}
                   className={styles.textAreaInput}
                   required
@@ -176,27 +201,28 @@ const AnalystDashboard: React.FC = () => {
               <div className={styles.formGroup}>
                 <label htmlFor="evidenceResult">Evidence Result</label>
                 <select
-                  id="evidenceResult"
-                  name="evidenceResult"
-                  value={formData.evidenceResult}
+                  id="evidence"
+                  name="evidence"
+                  value={formData.evidence}
                   onChange={handleChange}
                   className={styles.selectInput}
                   required
                 >
                   <option value="">Select an option</option>
-                  <option value="Images">Images</option>
-                  <option value="Files">Files</option>
-                  <option value="Links">Links</option>
-                  <option value="Text">Text</option>
+                  {Object.values(ArticleStatus).map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="methodology">Methodology</label>
                 <textarea
-                  id="methodology"
-                  name="methodology"
-                  value={formData.methodology}
+                  id="seMethod"
+                  name="seMethod"
+                  value={formData.seMethod}
                   onChange={handleChange}
                   className={styles.textAreaInput}
                   required
@@ -215,4 +241,3 @@ const AnalystDashboard: React.FC = () => {
 };
 
 export default AnalystDashboard;
-

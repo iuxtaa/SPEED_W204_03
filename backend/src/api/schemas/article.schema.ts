@@ -28,7 +28,7 @@ export class Article {
   @Prop()
   pages: string;
 
-  @Prop({ required: true })
+  @Prop()
   doi: string;
 
   @Prop({ required: true })
