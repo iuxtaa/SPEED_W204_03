@@ -1,11 +1,20 @@
-.user_container {
+.navBar {
+    color: rgb(28, 157, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: absolute;
     aspect-ratio: 1;
     backdrop-filter: brightness(50%);
     display: flex;
-    align-items: center;
+    align-items: right;
     justify-content: center;
     width: 2em;
     border-radius: 100%;
-    left: 1em
-    }
+    left: 1em;
+    right: 1em;
+}
+
+.speedTitle {
+    left: 1em;
+    font-size: 1.5em;
+    font-weight: bold;
+}
