@@ -1,0 +1,73 @@
+/* SearchArticles.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.filterSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  width: 45%; /* Adjust the width for side-by-side view */
+  padding: 0 10px; /* Adding padding for spacing */
+  margin-bottom: 20px; /* Adjust margin for better spacing */
+}
+
+.filterGroup label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.inputWrapper {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Ensuring space between inputs */
+}
+
+.inputWrapper input,
+.inputWrapper select {
+  width: 100%;
+  padding: 8px;
+  border: none; /* No border on inputs since the wrapper has it */
+  outline: none; /* Avoid default outline on focus within the styled div */
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

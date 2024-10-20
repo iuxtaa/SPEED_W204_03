@@ -43,12 +43,13 @@ export class ArticleController {
 
   // submits articles and sends it to the database
   @Post()
+
   async create(
     @Body() submitArticleDTO: SubmitArticleDTO,
     @Body('email') email: string,
   ) {
     const userEmail = email;
-    return this.ArticleService.create(submitArticleDTO, userEmail);
+    return this.ArticleService.create(submitArticleDTO, email);
   }
 
   // Upload a bibtex file for article submission
