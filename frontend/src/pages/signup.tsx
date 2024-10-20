@@ -52,7 +52,7 @@ const Signup = () => {
       }
 
       await response.json(); // We assume signup is successful if no error is thrown
-      router.push('/homepage'); // Redirect to homepage after successful signup
+      router.push('/home'); // Redirect to homepage after successful signup
     } catch (err) {
       console.error('Signup failed:', err);
       setError('Failed to signup. Please check your details and try again.');

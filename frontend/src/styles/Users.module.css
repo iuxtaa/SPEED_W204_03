@@ -1,11 +1,13 @@
-/* Admin.module.css */
+/* Users.module.css */
+
 .container {
   max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #ffffff; /* White background */
+  background-color: #ffffff; /* White background for clarity */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Ensures table is scrollable on small devices */
 }
 
 .heading {
@@ -17,15 +19,9 @@
 }
 
 .error {
-  color: #e74c3c; /* Red color for errors */
+  color: #e74c3c; /* Red color for displaying errors */
   text-align: center;
   margin-bottom: 20px;
-}
-
-.noArticles {
-  text-align: center;
-  font-size: 18px;
-  color: #7f8c8d; /* Gray color */
 }
 
 .table {
@@ -53,12 +49,12 @@
 .actions {
   display: flex;
   gap: 10px;
+  align-items: center; /* Ensures buttons are aligned nicely in the cell */
 }
 
 .editButton,
-.rejectButton {
+.deleteButton { /* Assuming you want a delete button styled similarly */
   padding: 8px 12px;
-  margin-right: 5px;
   font-size: 14px;
   border: none;
   border-radius: 5px;
@@ -70,28 +66,36 @@
   color: #fff;
 }
 
-.rejectButton {
+.deleteButton {
   background-color: #e74c3c; /* Red */
   color: #fff;
 }
 
-.editButton:hover {
-  background-color: #2980b9; /* Darker blue */
+.editButton:hover,
+.deleteButton:hover {
+  opacity: 0.9; /* Slight opacity for hover to give feedback */
 }
-.actions {
-  display: flex;
-  align-items: center;
-}
-/* Styles for responsiveness */
+
+/* Responsive Styles */
 @media (max-width: 768px) {
   .container {
     padding: 10px;
   }
 
-  .th, .td {
-    padding: 6px;
+  .heading {
+    font-size: 24px; /* Slightly smaller font size for smaller screens */
+  }
+
+  .table th, .table td {
+    padding: 8px; /* Less padding for table headers and cells on smaller screens */
+  }
+
+  .editButton, .deleteButton {
+    padding: 6px 10px; /* Smaller buttons on smaller screens */
+    font-size: 12px;
+  }
+
+  .actions {
+    gap: 5px; /* Less gap between actions buttons on smaller screens */
   }
 }
-
-
-

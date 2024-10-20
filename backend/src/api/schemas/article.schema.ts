@@ -40,7 +40,22 @@ export class Article {
   @Prop()
   claim: string;
 
+  @Prop()
+  feedback: string;
+
   @Prop({ required: true })
   email: string;
+
+  @Prop()
+  seMethod: string;
+
+  @Prop({ type: Number, min: 0, max: 5 })
+  rating: number;
+
+  @Prop({ default: 0 })
+  ratingSum: number;
+
+  @Prop({ default: 0 })
+  ratingCount: number;
 }
 export const ArticleSchema = SchemaFactory.createForClass(Article);

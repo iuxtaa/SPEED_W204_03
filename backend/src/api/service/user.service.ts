@@ -45,9 +45,8 @@ export class UserService {
     return {
       message: 'User log in successful',
       user: {
-        username: user.username,
-        email: user.email,
-        password: user.password,
+        firstname: user.firstname,
+        lastname: user.lastname,
       },
     };
   }
@@ -75,6 +74,10 @@ export class UserService {
     return this.userModel
       .findByIdAndUpdate(id, updateUserDTO, { new: true })
       .exec();
+  }
+
+  async deleteUser(id: string): Promise<User> {
+    return this.userModel.findByIdAndDelete(id).exec(); // Use _id
   }
 
   private checkPasswordConfirmation(
