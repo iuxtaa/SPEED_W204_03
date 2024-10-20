@@ -11,27 +11,38 @@ const PopulatedNavBar = () => {
     const onAdminPage = router.pathname.startsWith('/admin');
 
     return (
-        <NavBar>
-            <div className="speedTitle">SPEED</div> 
-            <NavItem route="/home" end>Home</NavItem>
-            <NavItem dropdown route="/articles">
-                Articles <IoMdArrowDropdown />
-                <NavDropdown>
-                    <NavItem route="/articles">View Articles</NavItem>
-                    <NavItem route="/Submission">Submit New</NavItem>
-                </NavDropdown>
+      <NavBar>
+        <div className="speedTitle">SPEED</div>
+        <NavItem route="/home" end>
+          Home
+        </NavItem>
+        <NavItem dropdown route="/articles">
+          Articles <IoMdArrowDropdown />
+          <NavDropdown>
+            <NavItem route="/articles">View Articles</NavItem>
+            <NavItem route="/submission">Submit New</NavItem>
+            <NavItem route="/AnalystDashboard">Analyst DashBoard</NavItem>
+            <NavItem route="/SearchArticles">Search Analysed Articles</NavItem>
+            <NavItem route="/admin">Admin Edit Article</NavItem>
+            <NavItem route="/users">Admin Edit Users</NavItem>
+            <NavItem route="/Moderator">Moderator Dashboard</NavItem>
+            <NavItem route="/Bibtex">
+              Submit Article as Bibtex
             </NavItem>
-            {onAdminPage && (
-                <NavItem dropdown>
-                    User Management <IoMdArrowDropdown />
-                    <NavDropdown>
-                        <NavItem route="/admin/users">View Users</NavItem>
-                        <NavItem route="/admin/permissions">Manage Permissions</NavItem>
-                        <NavItem route="/admin/settings">Settings</NavItem>
-                    </NavDropdown>
-                </NavItem>
-            )}
-        </NavBar>
+            <NavItem route="/rejectedarticles">
+              Rejected articles Dashboard
+            </NavItem>
+          </NavDropdown>
+        </NavItem>
+        {onAdminPage && (
+          <NavItem dropdown>
+            User Management <IoMdArrowDropdown />
+            <NavDropdown>
+              <NavItem route="/users">View Users</NavItem>
+            </NavDropdown>
+          </NavItem>
+        )}
+      </NavBar>
     );
 };
 
