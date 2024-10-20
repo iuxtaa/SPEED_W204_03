@@ -4,11 +4,11 @@ import {
   IsStrongPassword,
   IsNotEmpty,
   MinLength,
-  Matches,
 } from 'class-validator';
 import { UserStatus } from '../enums/user.status';
 import { UserDetails } from '../enums/user.details';
 import { UserMessages } from '../enums/user.details';
+import { Match } from '../decorators/Match'; // Adjust the path accordingly
 
 export class UserSignupDTO {
   @IsNotEmpty()
@@ -46,6 +46,6 @@ export class UserSignupDTO {
   password: string;
 
   @IsNotEmpty()
-  @Matches('password', { message: UserMessages.passwordMismatchMessage })
+  @Match('password', { message: UserMessages.passwordMismatchMessage })
   passwordConfirmation: string;
 }
